@@ -1,0 +1,263 @@
+/* Overrides so the ported page works without morphowater's JS/WebGL runtime.
+   Load LAST. */
+
+/* Dead Three.js canvases — hide them, keep DOM fallback imagery */
+.flow-webgl { display: none !important; }
+.bz-globe > canvas { display: none !important; }
+
+/* Fallback product shots were hidden because JS marked the WebGL "ready" */
+.flow-model.is-ready .flow-fallback,
+.flow-opening-product-frame.is-ready .flow-fallback { opacity: 1 !important; }
+.finale-return-model.is-ready .finale-return-fallback { opacity: var(--return-studio, 0) !important; }
+
+/* Video layers the original JS toggled on */
+.flow-page .territory-film .territory-film-image { display: block; }
+.blue-life-shot > video { display: block; }
+.blue-life-shot > video { opacity: 0; }
+.territory-film-image { opacity: 0; }
+
+/* Keep scrubbed videos covering their frames */
+.territory-film-image,
+.blue-life-shot > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Smooth crossfades between scene videos */
+.territory-film-image,
+.blue-life-shot > video,
+.flow-source-reveal .flow-landscape {
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mineral pour video fills its frame */
+.mineral-pour-film video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Smooth anchor scrolling */
+html { scroll-behavior: smooth; }
+
+/* Instagram track: allow horizontal scroll */
+.instagram-gallery_track__su5dE {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.instagram-gallery_track__su5dE::-webkit-scrollbar { display: none; }
+.instagram-gallery_card__GllSd {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+/* Blue zone pins: fade between chapters instead of hard visibility toggle */
+.bz-pin {
+  visibility: visible !important;
+  transition: color 0.6s ease;
+}
+.bz-nicoya-target { transition: opacity 0.9s ease; }
+
+/* Nicoya stories: 8 beats instead of 3 — keep ~100svh of scroll per beat */
+.flow-page > .bluezone-life { height: 900svh; }
+
+/* Hero trimmed to intro + "A small click" — shorter scroll, same handoff */
+.flow-journey { height: 260vh; }
+@media (max-width: 700px) { .flow-journey { height: 240vh; } }
+
+/* Element definition tag under each beat kicker */
+.blue-life-element {
+  margin: -16px 0 22px;
+  font-family: Gotham, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #9fc3d8;
+}
+
+/* Hero intro-right subtext — larger */
+.flow-page .flow-intro-right p {
+  font-size: clamp(18px, 2.1vw, 27px);
+  line-height: 1.5;
+}
+
+/* Shared element artwork — sits right of the beat text, all 8 sections */
+.blue-life-side {
+  position: absolute;
+  left: calc(100% + 5vw);
+  top: 50%;
+  transform: translateY(-50%);
+  height: min(56svh, 540px);
+  width: auto;
+  max-width: 30vw;
+  object-fit: cover;
+  opacity: calc(var(--handoff-copy, 1) * var(--handoff-opacity, 1));
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 1100px) { .blue-life-side { display: none; } }
+
+/* Product finale -> "Shop by element" collection grid */
+.flow-page > .product-finale { height: auto; }
+.product-reveal {
+  position: relative;
+  height: auto;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 12vh 7% calc(var(--dock-height, 84px) + 6vh);
+}
+.collection-wrap { width: 100%; max-width: 1440px; margin: 0 auto; }
+.collection-kicker {
+  font-family: Gotham, Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #9fc3d8;
+  margin: 0 0 18px;
+}
+.collection-title {
+  margin: 0 0 20px;
+  font: 300 clamp(46px, 6.2vw, 96px) / 1.02 Gotham, sans-serif;
+  letter-spacing: -0.045em;
+  color: #fff;
+}
+.collection-title em {
+  font-family: var(--flow-serif, Georgia, serif);
+  font-style: italic;
+  font-weight: 300;
+}
+.collection-sub {
+  max-width: 600px;
+  margin: 0 0 48px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #a9bcc9;
+}
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.collection-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 240px;
+  padding: 22px;
+  background: #141a21;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #fff;
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.collection-card:hover {
+  border-color: var(--el-color);
+  transform: translateY(-3px);
+}
+.collection-swatch {
+  width: 36px;
+  height: 36px;
+  background: var(--el-color);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.collection-name {
+  font-size: 21px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+.collection-tag {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8fa5b3;
+}
+.collection-hint {
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #a9bcc9;
+}
+.collection-shop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.collection-all { margin-top: 46px; }
+@media (max-width: 1100px) { .collection-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) {
+  .collection-grid { grid-template-columns: 1fr; }
+  .collection-card { min-height: 0; }
+}
+
+/* Element action buttons (View retreats / View collection) */
+.element-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.element-btn {
+  display: inline-block;
+  background: #f4f7f8;
+  color: #101820;
+  font-family: Gotham, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 15px 24px 15px 26px;
+  text-decoration: none;
+  border: 1px solid #f4f7f8;
+  transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+.element-btn:hover { opacity: 0.82; }
+
+/* The Meridyan text wordmark (replaces MORPHO logo image) */
+.meridyan-logo {
+  display: inline-block;
+  font-family: Gotham, Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(17px, 1.9vw, 24px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #f4f7f8;
+  white-space: nowrap;
+  padding-left: 0.32em; /* optically recenter tracked caps */
+}
+.bz-pin[data-active="true"] { color: #fff; }
+
+/* Footer: shorter + centered Connect block */
+.flow-footer.morpho-footer { padding: 48px 6% 72px; }
+.footer-story { padding: 36px 0 44px; align-items: center; }
+.footer-signature { font-size: clamp(46px, 5.4vw, 84px); }
+.footer-invitation p { margin-bottom: 22px; max-width: 430px; }
+.footer-shop { padding: 12px 0; font-size: 17px; }
+.footer-connect { padding: 34px 0 28px; }
+.footer-legal { padding: 20px 0; }
+
+/* Hero -> Elements crossfade: incoming stage fills viewport while entering */
+.bluezone-life-stage.is-incoming {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  z-index: 3;
+}
+
+
