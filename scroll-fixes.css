@@ -69,8 +69,8 @@ html { scroll-behavior: smooth; }
 .flow-page > .bluezone-life { height: 900svh; }
 
 /* Hero trimmed to intro + "A small click" — shorter scroll, same handoff */
-.flow-journey { height: 260vh; }
-@media (max-width: 700px) { .flow-journey { height: 240vh; } }
+.flow-journey { height: 200vh; }
+@media (max-width: 700px) { .flow-journey { height: 190vh; } }
 
 /* Element definition tag under each beat kicker */
 .blue-life-element {
@@ -308,3 +308,68 @@ html { scroll-behavior: smooth; }
     background: rgba(255, 255, 255, .08);
   }
 }
+
+
+
+
+
+/* Hero: fullscreen photo instead of WebGL tree */
+.flow-page .flow-model .flow-webgl { display: none !important; }
+.flow-page .flow-opening-product-frame { opacity: 1 !important; }
+.flow-page .flow-opening-product-frame .flow-fallback,
+.flow-page .flow-opening-picture .flow-fallback {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  object-fit: cover !important;
+  opacity: 1 !important;
+}
+
+/* Hero: cinematic shade over photo only — items stay clean */
+.flow-opening-product-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10,18,123,.12), transparent 60%),
+    linear-gradient(180deg, #10182080, #10182026 24%, #10182087 44%, #101820c4 75%, #101820ed),
+    linear-gradient(90deg, #10182033, transparent);
+}
+.flow-opening-product-frame .flow-fallback { z-index: 0; }
+.flow-opening-product-frame .hero-items { z-index: 2; }
+
+/* Hide hero scroll progress "01 THE MERIDYAN" */
+.flow-progress { display: none !important; }
+.flow-page .flow-opening-product-frame .flow-fallback { filter: none !important; }
+
+/* Hero: product collage floating over nature photo */
+.flow-opening-product-frame .hero-items {
+  position: absolute !important;
+  top: 54% !important;
+  left: 52% !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 52% !important;
+  max-height: 52% !important;
+  object-fit: contain !important;
+  pointer-events: none;
+  opacity: var(--object, 1);
+}
+
+/* Hero: smaller headline */
+.flow-page .flow-opening-content .flow-copy h1 { font-size: clamp(46px, 5.6vw, 88px) !important; }
+
+/* Hero: keep "Connect, contribute, create." on one line */
+.flow-intro-right { max-width: 62% !important; }
+.flow-intro-right > span { white-space: nowrap !important; }
+.flow-intro-right { transform: translateY(-14vh) !important; }
+.flow-page .flow-opening-content .flow-copy { transform: translateY(3vh) !important; }

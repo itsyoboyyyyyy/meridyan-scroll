@@ -86,7 +86,7 @@
   function heroFrame(p) {
     if (!hero) return;
     var stage = hero.querySelector('.flow-stage');
-    setVar(stage, '--intro', (1 - ss(0.1, 0.35, p)).toFixed(4));
+    setVar(stage, '--intro', (1 - ss(0.86, 0.97, p)).toFixed(4));
     setVar(stage, '--hero-light', ss(0.35, 0.85, p).toFixed(4));
     setVar(stage, '--object', (1 - ss(0.7, 0.92, p)).toFixed(4));
     setVar(stage, '--open', '0');
@@ -97,7 +97,9 @@
     setVar(hero, '--scene-exit', ss(0.92, 1, p).toFixed(4));
     setVar(hero, '--nature-exit', '0');
     var desc = stage.querySelector('[data-scroll-reading]');
-    setRead(desc, ss(0.03, 0.2, p));
+    setRead(desc, ss(0.05, 0.88, p));
+    var introRight = stage.querySelector('.flow-intro-right') || hero.querySelector('.flow-intro-right');
+    if (introRight) introRight.style.opacity = (1 - ss(0.78, 0.95, p)).toFixed(3);
   }
 
   // ---------- TERRITORY (flow-life, flow-everyday) ----------
@@ -412,8 +414,11 @@
     if (bl) {
       blFrame(progress(bl));
       var blr = bl.getBoundingClientRect();
-      if (blr.top < window.innerHeight && blr.bottom > 0) {
+      if (blr.top < window.innerHeight * 2.5 && blr.bottom > -window.innerHeight) preloadSounds();
+      if (blr.top < window.innerHeight && blr.bottom > window.innerHeight * 0.65) {
         setSectionSound(SOUND_FILES[lastBeat] || 'wildamore');
+      } else {
+        duckSounds();
       }
     }
     document.querySelectorAll('.territory-journey').forEach(territory);
@@ -446,31 +451,55 @@
     cancelAnimationFrame(a._fr);
     (function step(t) {
       var k = Math.min(1, (t - t0) / dur);
-      a.volume = +(from + (target - from) * k).toFixed(3);
+      a.volume = Math.max(0, Math.min(1, +(from + (target - from) * k).toFixed(3)));
       if (k < 1) a._fr = requestAnimationFrame(step);
       else if (done) done();
     })(t0);
   }
-  function setSectionSound(name) {
-    if (!name || name === currentSound) return;
-    currentSound = name;
+  var soundDucked = false;
+  function applySoundLevels(name) {
     Object.keys(soundEls).forEach(function (k) {
-      if (k !== name) { var a = soundEls[k]; fadeVol(a, 0, 400, function () { a.pause(); }); }
+      var a = soundEls[k];
+      fadeVol(a, k === name ? 0.1 : 0, k === name ? 700 : 400);
     });
-    var n = soundEl(name);
-    if (soundOn) { n.play().catch(function () {}); fadeVol(n, 0.4, 700); }
+  }
+  function setSectionSound(name) {
+    if (!name) return;
+    if (name === currentSound) {
+      if (soundDucked) { soundDucked = false; applySoundLevels(name); }
+      return;
+    }
+    currentSound = name;
+    soundDucked = false;
+    // all tracks keep playing silently — switching is a pure volume crossfade
+    applySoundLevels(name);
+    if (soundOn) soundEl(name).play().catch(function () {});
+  }
+  function duckSounds() {
+    if (!soundOn || soundDucked) return;
+    soundDucked = true;
+    Object.keys(soundEls).forEach(function (k) { fadeVol(soundEls[k], 0, 1600); });
+  }
+  var sndPreload = false;
+  function preloadSounds() {
+    if (sndPreload) return;
+    sndPreload = true;
+    SOUND_FILES.forEach(function (n) { soundEl(n).load(); });
   }
   function setSoundEnabled(on) {
     soundOn = on;
     if (on) {
+      soundDucked = false;
+      preloadSounds();
       var name = currentSound || SOUND_FILES[lastBeat] || 'wildamore';
-      // preload every element track so section changes are instant
-      SOUND_FILES.forEach(function (n) { soundEl(n).load(); });
-      var a = soundEl(name);
-      a.play().catch(function () {});
-      fadeVol(a, 0.4, 600);
       currentSound = name;
+      SOUND_FILES.forEach(function (n) {
+        var a = soundEl(n);
+        a.play().catch(function () {});
+        fadeVol(a, n === name ? 0.1 : 0, n === name ? 600 : 300);
+      });
     } else {
+      soundDucked = false;
       Object.keys(soundEls).forEach(function (k) { var a = soundEls[k]; fadeVol(a, 0, 350, function () { a.pause(); }); });
     }
   }
@@ -544,8 +573,8 @@
     });
   }
 
-  window.addEventListener('load', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); });
+  window.addEventListener('load', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); preloadSounds(); });
   window.addEventListener('resize', sizeNotch);
-  document.addEventListener('DOMContentLoaded', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); });
+  document.addEventListener('DOMContentLoaded', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); preloadSounds(); });
   requestAnimationFrame(loop);
 })();
