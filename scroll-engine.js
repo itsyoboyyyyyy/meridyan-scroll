@@ -196,6 +196,7 @@
     var copies = Array.prototype.slice.call(stage.querySelectorAll('.blue-life-copy'));
     var beats = stage.querySelectorAll('.blue-life-beats i');
     var n = shots.length || 1, act = 1 / n, ch = clamp(Math.floor(p * n), 0, n - 1);
+    lastBeat = ch;
     bl.setAttribute('data-beat', String(ch));
     beats.forEach(function (b, i) { b.setAttribute('data-active', String(i === ch)); });
     shots.forEach(function (shot, i) {
@@ -394,14 +395,28 @@
           header.setAttribute('data-open', header.getAttribute('data-open') === 'true' ? 'false' : 'true');
         });
       });
+      header.querySelectorAll('.morpho-main-nav a, .morpho-main-nav button').forEach(function (el) {
+        el.addEventListener('click', function () { header.setAttribute('data-open', 'false'); });
+      });
+      document.addEventListener('click', function (e) {
+        if (header.getAttribute('data-open') === 'true' && !e.target.closest('.morpho-header')) {
+          header.setAttribute('data-open', 'false');
+        }
+      });
     }
   }
 
   function frame() {
     if (hero) heroFrame(progress(hero));
+    if (bl) {
+      blFrame(progress(bl));
+      var blr = bl.getBoundingClientRect();
+      if (blr.top < window.innerHeight && blr.bottom > 0) {
+        setSectionSound(SOUND_FILES[lastBeat] || 'wildamore');
+      }
+    }
     document.querySelectorAll('.territory-journey').forEach(territory);
     if (bz) bzFrame(progress(bz));
-    if (bl) blFrame(progress(bl));
     if (h2o) h2oFrame(progress(h2o));
     if (fw) fwFrame(progress(fw));
     handoffs();
@@ -412,7 +427,52 @@
     frame();
     requestAnimationFrame(loop);
   }
-  // ---------- sound toggle (UI state only — audio wiring comes later) ----------
+  // ---------- ambient section audio ----------
+  var SOUND_FILES = ['wildamore', 'siren', 'ember', 'horizon', 'summit', 'mirage', 'halcyon', 'astoria'];
+  var soundOn = false, currentSound = null, lastBeat = 0;
+  var soundEls = {};
+  window.__meridyanSnd = soundEls; // debug/testing hook
+  function soundEl(name) {
+    if (!soundEls[name]) {
+      var a = new Audio('assets/user/sounds/' + name + '.mp3');
+      a.loop = true; a.volume = 0; a.preload = 'auto';
+      soundEls[name] = a;
+    }
+    return soundEls[name];
+  }
+  function fadeVol(a, target, dur, done) {
+    var from = a.volume, t0 = performance.now();
+    cancelAnimationFrame(a._fr);
+    (function step(t) {
+      var k = Math.min(1, (t - t0) / dur);
+      a.volume = +(from + (target - from) * k).toFixed(3);
+      if (k < 1) a._fr = requestAnimationFrame(step);
+      else if (done) done();
+    })(t0);
+  }
+  function setSectionSound(name) {
+    if (!name || name === currentSound) return;
+    currentSound = name;
+    Object.keys(soundEls).forEach(function (k) {
+      if (k !== name) { var a = soundEls[k]; fadeVol(a, 0, 400, function () { a.pause(); }); }
+    });
+    var n = soundEl(name);
+    if (soundOn) { n.play().catch(function () {}); fadeVol(n, 0.4, 700); }
+  }
+  function setSoundEnabled(on) {
+    soundOn = on;
+    if (on) {
+      var name = currentSound || SOUND_FILES[lastBeat] || 'wildamore';
+      var a = soundEl(name);
+      a.play().catch(function () {});
+      fadeVol(a, 0.4, 600);
+      currentSound = name;
+    } else {
+      Object.keys(soundEls).forEach(function (k) { var a = soundEls[k]; fadeVol(a, 0, 350, function () { a.pause(); }); });
+    }
+  }
+
+  // ---------- sound toggle ----------
   var VOL_X = '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><line x1="22" x2="16" y1="9" y2="15"></line><line x1="16" x2="22" y1="9" y2="15"></line>';
   var VOL_2 = '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path><path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>';
   function wireSound() {
@@ -433,6 +493,7 @@
       var span = btn.querySelector('span');
       if (span) span.textContent = on ? 'Sound On' : 'Sound Off';
       player.setAttribute('data-sound', on ? 'on' : 'off');
+      setSoundEnabled(on);
     });
   }
 

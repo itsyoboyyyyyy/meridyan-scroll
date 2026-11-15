@@ -279,3 +279,32 @@ html { scroll-behavior: smooth; }
   color: rgba(255, 255, 255, .85);
   text-shadow: 0 1px 18px rgba(16, 32, 50, .4);
 }
+
+/* ===== Mobile nav menu ===== */
+@media (max-width: 700px) {
+  .meridyan-logo { font-size: 12.5px; letter-spacing: .24em; }
+  .morpho-mobile-trigger { font-size: 0 !important; gap: 0; }
+  .morpho-mobile-trigger::after {
+    content: "Explore"; font-size: 11px; letter-spacing: .14em;
+  }
+  .morpho-header[data-open="true"] .morpho-mobile-trigger::after { content: "Close"; }
+  .morpho-header[data-open="true"] .morpho-main-nav {
+    display: flex; flex-direction: column;
+    position: absolute; top: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%);
+    min-width: min(78vw, 320px); padding: 10px;
+    border-radius: 22px;
+    background: rgba(12, 18, 30, .92);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, .14);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
+    gap: 2px; z-index: 60;
+  }
+  .morpho-header[data-open="true"] .morpho-main-nav :is(a, button) {
+    justify-content: flex-start; padding: 12px 18px;
+    font-size: 13px; letter-spacing: .08em; border-radius: 12px;
+  }
+  .morpho-header[data-open="true"] .morpho-main-nav :is(a, button):hover {
+    background: rgba(255, 255, 255, .08);
+  }
+}
