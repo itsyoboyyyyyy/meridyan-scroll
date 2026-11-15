@@ -188,12 +188,7 @@
 
   // ---------- BLUE ZONE LIFE (flow-essential) ----------
   var bl = document.getElementById('flow-essential');
-  var blVis = []; // per-beat copy opacity, for audio sync
-  function blActiveBeat() {
-    var bi = 0, bv = -1;
-    for (var i = 0; i < blVis.length; i++) if (blVis[i] > bv) { bv = blVis[i]; bi = i; }
-    return bi;
-  }
+  var lastBeat = 0;
   function blFrame(p) {
     if (!bl) return;
     var stage = bl.querySelector('.bluezone-life-stage');
@@ -202,6 +197,7 @@
     var copies = Array.prototype.slice.call(stage.querySelectorAll('.blue-life-copy'));
     var beats = stage.querySelectorAll('.blue-life-beats i');
     var n = shots.length || 1, act = 1 / n, ch = clamp(Math.floor(p * n), 0, n - 1);
+    lastBeat = ch;
     bl.setAttribute('data-beat', String(ch));
     beats.forEach(function (b, i) { b.setAttribute('data-active', String(i === ch)); });
     shots.forEach(function (shot, i) {
@@ -221,7 +217,6 @@
       var copy = copies[i];
       if (copy) {
         var lc = op * ss(0.05, 0.35, local) * (i === n - 1 ? 1 : (1 - ss(0.85, 1, local)));
-        blVis[i] = lc;
         setVar(copy, '--life-copy', lc.toFixed(4));
         setVar(copy, '--life-rise', ((1 - ss(0.05, 0.4, local)) * 14).toFixed(2) + 'px');
         setRead(copy.querySelector('[data-scroll-reading]'), ss(0.15, 0.75, local));
@@ -418,7 +413,7 @@
       blFrame(progress(bl));
       var blr = bl.getBoundingClientRect();
       if (blr.top < window.innerHeight && blr.bottom > 0) {
-        setSectionSound(SOUND_FILES[blActiveBeat()] || 'wildamore');
+        setSectionSound(SOUND_FILES[lastBeat] || 'wildamore');
       }
     }
     document.querySelectorAll('.territory-journey').forEach(territory);
@@ -468,7 +463,7 @@
   function setSoundEnabled(on) {
     soundOn = on;
     if (on) {
-      var name = currentSound || SOUND_FILES[blActiveBeat()] || 'wildamore';
+      var name = currentSound || SOUND_FILES[lastBeat] || 'wildamore';
       // preload every element track so section changes are instant
       SOUND_FILES.forEach(function (n) { soundEl(n).load(); });
       var a = soundEl(name);
