@@ -463,6 +463,8 @@
     soundOn = on;
     if (on) {
       var name = currentSound || SOUND_FILES[lastBeat] || 'wildamore';
+      // preload every element track so section changes are instant
+      SOUND_FILES.forEach(function (n) { soundEl(n).load(); });
       var a = soundEl(name);
       a.play().catch(function () {});
       fadeVol(a, 0.4, 600);
