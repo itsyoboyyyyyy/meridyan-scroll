@@ -40,7 +40,46 @@
     } else if (!video.paused) video.pause();
   }
 
-  function setRead(el, v) { if (el) el.style.setProperty('--read-progress', v.toFixed(4)); }
+  // --read-progress feeds --word-on = clamp(0,(read - word-start)*40,1).
+  // Every block's last word has --word-start:1.0000, so read must exceed 1
+  // (needs >=1.025) or the final word — the one ending in the period — can
+  // never fully highlight. Overshoot by 5%; CSS clamps word-on at 1 anyway.
+  // During autoplay the scroll moves fast, so --read-progress advances at a
+  // capped rate instead of snapping to the scroll position — the word-by-word
+  // highlight reads at a cinematic pace. Manual scrolling is untouched.
+  var autoplayActive = false;
+  var readCur = new WeakMap();
+  var readEls = null;
+  var READ_MAX_RATE = 0.1; // progress units per second during autoplay
+  function setRead(el, v) {
+    if (!el) return;
+    var now = performance.now();
+    var st = readCur.get(el);
+    if (!st) { st = { p: v, t: now, tg: v }; readCur.set(el, st); }
+    st.tg = v;
+    var dt = Math.min(0.1, (now - st.t) / 1000); st.t = now;
+    if (autoplayActive) {
+      var d = v - st.p, m = READ_MAX_RATE * dt;
+      st.p += Math.max(-m, Math.min(m, d));
+    } else {
+      st.p = v;
+    }
+    el.style.setProperty('--read-progress', (st.p * 1.05).toFixed(4));
+  }
+
+  // During autoplay, is any on-screen reading block still catching up?
+  // Used to crawl the scroll so scenes never advance mid-sentence.
+  function readPending() {
+    if (!readEls) readEls = Array.prototype.slice.call(document.querySelectorAll('[data-scroll-reading]'));
+    var vh = window.innerHeight;
+    for (var i = 0; i < readEls.length; i++) {
+      var el = readEls[i], r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) continue;
+      var st = readCur.get(el);
+      if (st && st.p < 0.99 && st.tg > st.p + 0.015) return true;
+    }
+    return false;
+  }
 
   // ---------- HERO ----------
   var hero = document.getElementById('flow-hero');
@@ -373,8 +412,76 @@
     frame();
     requestAnimationFrame(loop);
   }
-  window.addEventListener('load', function () { wireVideoFallbacks(); wireChrome(); });
+  // ---------- sound toggle (UI state only — audio wiring comes later) ----------
+  var VOL_X = '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><line x1="22" x2="16" y1="9" y2="15"></line><line x1="16" x2="22" y1="9" y2="15"></line>';
+  var VOL_2 = '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path><path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>';
+  function wireSound() {
+    var player = document.querySelector('.site-player');
+    var btn = document.querySelector('.site-sound-toggle');
+    if (!player || !btn || btn.dataset.wired) return;
+    btn.dataset.wired = '1';
+    btn.addEventListener('click', function () {
+      var on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      btn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+      var svg = btn.querySelector('svg');
+      if (svg) {
+        svg.innerHTML = on ? VOL_2 : VOL_X;
+        svg.classList.toggle('lucide-volume-x', !on);
+        svg.classList.toggle('lucide-volume-2', on);
+      }
+      var span = btn.querySelector('span');
+      if (span) span.textContent = on ? 'Sound On' : 'Sound Off';
+      player.setAttribute('data-sound', on ? 'on' : 'off');
+    });
+  }
+
+  // ---------- autoplay: cinematic auto-scroll through the whole page ----------
+  var PLAY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>';
+  var PAUSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pause" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"></rect><rect x="5" y="3" width="5" height="18" rx="1"></rect></svg>';
+  var AUTO_SPEED = 190; // px per second — matches MORPHO's cinematic pace
+  function wireAutoplay() {
+    var btn = document.querySelector('.site-autoplay');
+    var player = document.querySelector('.site-player');
+    if (!btn || !player || btn.dataset.wired) return;
+    btn.dataset.wired = '1';
+    var playing = false, raf = 0, last = 0;
+    function setState(on) {
+      autoplayActive = on;
+      btn.setAttribute('aria-pressed', String(on));
+      btn.setAttribute('aria-label', on ? 'Pause experience' : 'Play experience');
+      btn.innerHTML = (on ? PAUSE_SVG : PLAY_SVG) + '<span>' + (on ? 'Pause' : 'Play') + '</span>';
+      player.setAttribute('data-autoplay', on ? 'true' : 'false');
+    }
+    function tick(t) {
+      if (!playing) return;
+      if (!last) last = t;
+      var dt = (t - last) / 1000; last = t;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var y = window.scrollY || document.documentElement.scrollTop;
+      if (y >= max - 2) { stop(); window.scrollTo({ top: max, behavior: 'instant' }); return; }
+      var speed = readPending() ? 55 : AUTO_SPEED;
+      window.scrollTo({ top: y + speed * dt, behavior: 'instant' });
+      raf = requestAnimationFrame(tick);
+    }
+    function start() {
+      if (playing) return;
+      playing = true; last = 0; setState(true);
+      raf = requestAnimationFrame(tick);
+    }
+    function stop() {
+      if (!playing) return;
+      playing = false; cancelAnimationFrame(raf); setState(false);
+    }
+    btn.addEventListener('click', function () { playing ? stop() : start(); });
+    // any manual scroll input takes over and pauses the auto-play
+    ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+      window.addEventListener(ev, function () { if (playing) stop(); }, { passive: true });
+    });
+  }
+
+  window.addEventListener('load', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); });
   window.addEventListener('resize', sizeNotch);
-  document.addEventListener('DOMContentLoaded', function () { wireVideoFallbacks(); wireChrome(); });
+  document.addEventListener('DOMContentLoaded', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); });
   requestAnimationFrame(loop);
 })();
