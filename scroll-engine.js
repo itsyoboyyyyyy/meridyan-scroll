@@ -563,10 +563,13 @@
       raf = requestAnimationFrame(tick);
     }
     function stop() {
-      if (!playing) return;
       playing = false; cancelAnimationFrame(raf); setState(false);
     }
-    btn.addEventListener('click', function () { playing ? stop() : start(); });
+    btn.addEventListener('click', function () {
+      // aria-pressed is the visible state — trust it over the closure flag
+      // so a desync can never make "Pause" restart the scroll instead.
+      if (btn.getAttribute('aria-pressed') === 'true') stop(); else start();
+    });
     // any manual scroll input takes over and pauses the auto-play
     ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
       window.addEventListener(ev, function () { if (playing) stop(); }, { passive: true });
