@@ -502,3 +502,6 @@ html { scroll-behavior: smooth; }
 }
 .morpho-header-actions .site-player > button > svg { width: 15px; height: 15px; }
 .morpho-header-actions .morpho-header-shop { flex-shrink: 0; }
+
+/* Header wordmark nudge right */
+.morpho-header-logo { margin-left: 50px; }
