@@ -507,25 +507,31 @@
   // ---------- sound toggle ----------
   var VOL_X = '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><line x1="22" x2="16" y1="9" y2="15"></line><line x1="16" x2="22" y1="9" y2="15"></line>';
   var VOL_2 = '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path><path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>';
+  function syncSoundBtn(btn, on) {
+    btn.setAttribute('aria-pressed', String(on));
+    btn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+    var svg = btn.querySelector('svg');
+    if (svg) {
+      svg.innerHTML = on ? VOL_2 : VOL_X;
+      svg.classList.toggle('lucide-volume-x', !on);
+      svg.classList.toggle('lucide-volume-2', on);
+    }
+    var span = btn.querySelector('span');
+    if (span) span.textContent = on ? 'Sound On' : 'Sound Off';
+  }
   function wireSound() {
     var player = document.querySelector('.site-player');
-    var btn = document.querySelector('.site-sound-toggle');
-    if (!player || !btn || btn.dataset.wired) return;
-    btn.dataset.wired = '1';
-    btn.addEventListener('click', function () {
-      var on = btn.getAttribute('aria-pressed') !== 'true';
-      btn.setAttribute('aria-pressed', String(on));
-      btn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
-      var svg = btn.querySelector('svg');
-      if (svg) {
-        svg.innerHTML = on ? VOL_2 : VOL_X;
-        svg.classList.toggle('lucide-volume-x', !on);
-        svg.classList.toggle('lucide-volume-2', on);
-      }
-      var span = btn.querySelector('span');
-      if (span) span.textContent = on ? 'Sound On' : 'Sound Off';
-      player.setAttribute('data-sound', on ? 'on' : 'off');
-      setSoundEnabled(on);
+    var btns = document.querySelectorAll('.site-sound-toggle');
+    if (!player || !btns.length) return;
+    btns.forEach(function (btn) {
+      if (btn.dataset.wired) return;
+      btn.dataset.wired = '1';
+      btn.addEventListener('click', function () {
+        var on = btn.getAttribute('aria-pressed') !== 'true';
+        btns.forEach(function (b) { syncSoundBtn(b, on); });
+        player.setAttribute('data-sound', on ? 'on' : 'off');
+        setSoundEnabled(on);
+      });
     });
   }
 

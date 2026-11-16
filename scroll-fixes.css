@@ -76,7 +76,7 @@ html { scroll-behavior: smooth; }
 .blue-life-element {
   margin: -16px 0 22px;
   font-family: Gotham, Arial, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -118,7 +118,7 @@ html { scroll-behavior: smooth; }
 .collection-wrap { width: 100%; max-width: 1440px; margin: 0 auto; }
 .collection-kicker {
   font-family: Gotham, Arial, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: #9fc3d8;
@@ -166,7 +166,7 @@ html { scroll-behavior: smooth; }
 }
 .collection-swatch {
   width: 36px;
-  height: 36px;
+  height: 50px;
   background: var(--el-color);
   border: 1px solid rgba(255, 255, 255, 0.28);
 }
@@ -176,7 +176,7 @@ html { scroll-behavior: smooth; }
   letter-spacing: 0.01em;
 }
 .collection-tag {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #8fa5b3;
@@ -193,7 +193,7 @@ html { scroll-behavior: smooth; }
   align-items: center;
   gap: 8px;
   margin-top: 8px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -285,7 +285,7 @@ html { scroll-behavior: smooth; }
   .meridyan-logo { font-size: 12.5px; letter-spacing: .24em; }
   .morpho-mobile-trigger { font-size: 0 !important; gap: 0; }
   .morpho-mobile-trigger::after {
-    content: "Explore"; font-size: 11px; letter-spacing: .14em;
+    content: "Explore"; font-size: 12px; letter-spacing: .14em;
   }
   .morpho-header[data-open="true"] .morpho-mobile-trigger::after { content: "Close"; }
   .morpho-header[data-open="true"] .morpho-main-nav {
@@ -451,7 +451,7 @@ html { scroll-behavior: smooth; }
   display: block;
 }
 @media (max-width: 700px) {
-  .morpho-header-logo img.meridyan-logo-img { height: 56px; width: auto !important; max-width: none !important; }
+  .morpho-header-logo img.meridyan-logo-img { height: 50px; width: auto !important; max-width: none !important; }
 }
 
 /* Hero: logo overlaid centered on the headline */
@@ -485,3 +485,20 @@ html { scroll-behavior: smooth; }
 @media (max-width: 700px) {
   .meridyan-wordmark { font-size: 13px; letter-spacing: .2em; }
 }
+
+/* Player pill lives in the header next to Shop */
+.morpho-header-actions .site-player {
+  position: static;
+  margin: 0;
+  height: 50px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.morpho-header-actions .site-player > button {
+  min-height: 44px;
+  font-size: 11px;
+  padding: 0 14px;
+  gap: 6px;
+}
+.morpho-header-actions .site-player > button > svg { width: 15px; height: 15px; }
+.morpho-header-actions .morpho-header-shop { flex-shrink: 0; }
