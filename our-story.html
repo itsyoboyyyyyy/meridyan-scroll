@@ -5,14 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Our Story — The Meridyan</title>
 <meta name="description" content="The story of The Meridyan — creativity, connection, contribution, and creation.">
-<style>html,body{margin:0;padding:0;background:#101820}</style>
+<style>html,body{margin:0;padding:0;background:#101820}
+.water-copy{left:8%!important;right:auto!important;top:46%!important;max-width:560px!important;text-align:left}
+@media(max-width:800px){}
+.water-sky .water-copy{left:0!important;right:0!important;margin-left:auto!important;margin-right:auto!important;max-width:1120px!important;text-align:center!important;top:50%!important}
+.water-copy h1,.water-copy h2{letter-spacing:-2px}
+.water-minerals .water-copy{top:44%!important}
+.story-pillars{margin-top:30px!important}
+.story-pillars{grid-template-columns:1fr!important;gap:8px!important;max-width:560px!important}
+</style>
 <link media="all" rel="stylesheet" href="css/fd61ed82119a6d0c.css">
 <link media="all" rel="stylesheet" href="css/1377dd7e572981b0.css">
 <link media="all" rel="stylesheet" href="css/81c3c7df92520b79.css">
 <link media="all" rel="stylesheet" href="css/92854c48005adeb0.css">
 <link media="all" rel="stylesheet" href="css/914edfe8f866d2f8.css">
 <link media="all" rel="stylesheet" href="css/0107829da691d027.css">
+<link media="all" rel="stylesheet" href="css/0ce53d15ddeab85c.css">
+<link media="all" rel="stylesheet" href="css/3c0b1736c7ed2e35.css">
+<link media="all" rel="stylesheet" href="css/3cbabd3b90bd09d2.css">
+<link media="all" rel="stylesheet" href="css/846dfcc68f16207b.css">
+<link media="all" rel="stylesheet" href="css/9e2f454f65f2772a.css">
+<link media="all" rel="stylesheet" href="css/b02af53e4f1dc310.css">
 <link media="all" rel="stylesheet" href="css/water.css">
+<link media="all" rel="stylesheet" href="scroll-fixes.css?v=197">
 <style>
   /* our-story additions on top of the real water-* system */
   .water-film img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; background:#101820; }
@@ -26,9 +41,9 @@
   /* quiet reading chapter — no sticky stage, plain bg, bigger text */
   .water-chapter.story-quiet { height:auto !important; min-height:0 !important; background:radial-gradient(ellipse at 50% 0%,#16222e 0%,#101820 60%); }
   .water-chapter.story-quiet .water-stage { position:relative !important; height:auto !important; min-height:100svh; display:flex; align-items:center; justify-content:center; }
-  .water-chapter.story-quiet .water-copy { position:relative !important; left:auto !important; right:auto !important; top:auto !important; transform:none !important; max-width:720px !important; width:100%; margin:0 auto; padding:12vh 6vw 18vh; }
+  .water-chapter.story-quiet .water-copy { position:relative !important; left:auto !important; right:auto !important; top:auto !important; transform:none !important; max-width:960px !important; width:100%; margin:0 auto; padding:12vh 6vw 18vh; }
   .water-chapter.story-quiet .water-copy h2 { font-size:clamp(48px,5.5vw,88px) !important; }
-  .water-chapter.story-quiet .story-long { max-width:640px !important; font-size:clamp(17px,1.45vw,20px) !important; line-height:1.95 !important; color:#e9f0f4 !important; }
+  .water-chapter.story-quiet .story-long { max-width:880px !important; font-size:clamp(16px,1.3vw,19px) !important; line-height:1.9 !important; color:#e9f0f4 !important; }
   .water-chapter.story-quiet .story-long p { margin:0 0 1.5em; }
   .water-chapter.story-quiet .water-eyebrow { margin-bottom:22px; }
   .story-links { display:flex; flex-direction:column; align-items:flex-start; gap:20px; margin-top:30px; }
@@ -38,34 +53,43 @@
   .story-navlinks a { font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#ffffffc9; text-decoration:none; opacity:.8; white-space:nowrap; }
   .story-navlinks a:hover, .story-navlinks a.active { opacity:1; color:#d0edff; }
   @media (max-width:700px){ .story-navlinks{ display:none; } .story-pillars{ grid-template-columns:1fr; gap:20px; } }
+
+  /* chapter 2 — match homepage element text exactly */
+  #story-begin .water-copy{left:7%!important;top:44%!important;max-width:640px!important}
+  #story-begin .water-copy h2{font:300 clamp(45px,min(6.4vw,10svh),104px)/1.02 Gotham,Arial,sans-serif!important;letter-spacing:-.055em!important;margin:0 0 28px!important}
+  #story-begin .water-copy h2 em{display:block;font:italic 300 1.08em/1.12 "Publico Headline",Georgia,serif!important;letter-spacing:-.045em!important}
+  #story-begin .water-eyebrow{font-size:10px;letter-spacing:2.25px;margin:0 0 26px}
+  #story-begin .water-description{font-size:clamp(14px,1.12vw,17px)!important;line-height:1.8!important;max-width:495px!important;color:#fff!important;margin:0 0 18px!important;text-shadow:0 1px 18px #1018204d}
+  #story-begin .water-description:last-of-type{margin-bottom:0!important}
+  #story-begin .water-description[data-scroll-reading]{--read-rest-opacity:.43}
+  #story-begin .water-film img{object-position:center 40%}
+  #story-kaitlyn .water-copy h2 em{display:inline!important}
 </style>
 </head>
 <body class="our-water-page">
+<header class="morpho-header" data-open="false"><a class="morpho-header-logo" href="https://www.themeridyan.com/home2" target="_top" aria-label="The Meridyan homepage"><span class="meridyan-wordmark">THE MERIDYAN</span></a><fieldset class="site-player" aria-label="Experience controls" data-autoplay="false" data-film-blocked="false" lang="en"><button class="site-autoplay" type="button" aria-pressed="false" aria-label="Play experience"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg><span>Play</span></button><button class="site-sound-toggle" type="button" aria-pressed="false" aria-label="Turn sound on"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-x" aria-hidden="true"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><line x1="22" x2="16" y1="9" y2="15"></line><line x1="16" x2="22" y1="9" y2="15"></line></svg><span>Sound<!-- --> <!-- -->Off</span></button><div hidden="" aria-hidden="true"><aside class="morpho-radio  radio-is-hidden" inert="" aria-hidden="true" aria-label="Meridyan ambient" data-playing="false" data-track="0" data-loading="false" data-muted="false"><audio preload="none" aria-hidden="true"></audio><div class="radio-info"><span class="radio-brand"><i></i><i></i><i></i> MERIDYAN <span class="radio-count" aria-hidden="true">01<!-- --> / <!-- -->08</span></span><div aria-live="polite" aria-atomic="true"><span class="radio-title" title="Wildamore">Wildamore</span><span class="radio-artist" title="The Meridyan">The Meridyan</span></div></div><div class="radio-buttons"><button disabled="" aria-label="Previous track"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-back" aria-hidden="true"><path d="M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"></path><path d="M3 20V4"></path></svg></button><button class="radio-play" aria-busy="false" aria-label="Play ambient sound"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg></button><button aria-label="Next track"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-forward" aria-hidden="true"><path d="M21 4v16"></path><path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"></path></svg></button></div></aside></div></fieldset><div class="morpho-notch"><div class="morpho-notch-glass" style="width: 616.469px; height: 62px; clip-path: path(&quot;M 0 0 A 22 22 0 0 1 22 22 L 22 44 A 18 18 0 0 0 40 62 L 576.469 62 A 18 18 0 0 0 594.469 44 L 594.469 22 A 22 22 0 0 1 616.469 0 Z&quot;);" aria-hidden="true"></div><svg class="morpho-notch-shape" viewBox="0 0 616.46875 62" style="width: 616.469px; height: 62px;" aria-hidden="true"><path d="M0,0 A22,22 0 0 1 22,22 L22,44 A18,18 0 0 0 40,62 L576.46875,62 A18,18 0 0 0 594.46875,44 L594.46875,22 A22,22 0 0 1 616.46875,0 Z"></path><path class="morpho-notch-edge" d="M0,0 A22,22 0 0 1 22,22 L22,44 A18,18 0 0 0 40,62 L576.46875,62 A18,18 0 0 0 594.46875,44 L594.46875,22 A22,22 0 0 1 616.46875,0" vector-effect="non-scaling-stroke"></path></svg><div class="morpho-notch-bar"><nav class="morpho-main-nav" aria-label="Main navigation"><a href="our-story.html" id="_R_11bqlb_-community" data-current="false"><span>Our Story</span></a><span class="nav-drop" data-menu="retreats"><a href="elements.html?type=retreats" target="_top" data-current="false"><span>Retreats</span></a></span><span class="nav-drop" data-menu="workshops"><a id="meridyan-workshops" href="elements.html?type=workshops" target="_top" data-current="false"><span>Workshops</span></a></span><a href="https://www.themeridyan.com/rooted-rewards" target="_top" data-current="false"><span>Rooted Rewards</span></a><a href="connect.html" target="_top" data-current="false"><span>Connect</span></a></nav><button type="button" class="morpho-mobile-trigger" aria-expanded="false" aria-controls="_R_11bqlb_-panel">Explore</button></div></div><div class="morpho-header-actions"><a class="morpho-header-shop"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"></path><path d="M3.103 6.034h17.794"></path><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path></svg><span>Shop<span class="morpho-shop-word"> THE MERIDYAN</span></span><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="morpho-header-login" href="https://www.themeridyan.com/meridyan-members" target="_top">My Account</a><a class="morpho-header-cart" href="https://www.themeridyan.com/cart-page" target="_top" aria-label="Cart"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg></a></div><section class="morpho-mega" id="meridyan-mega" aria-label="The Eight Elements" hidden>
+<div class="morpho-mega-body">
+<figure class="morpho-mega-film" data-playback="poster">
+<video muted loop playsinline preload="none" aria-hidden="true"></video>
+<figcaption><span>THE MERIDYAN</span><em id="mega-caption">Where Curiosity Grows Wild</em></figcaption>
+<button type="button" id="mega-video-toggle" aria-label="Pause menu video"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg></button>
+</figure>
+<div class="morpho-mega-links">
+<p class="morpho-mega-eyebrow" id="mega-eyebrow">CREATE WITH YOUR COMMUNITY</p>
+<nav aria-label="Elements"><a href="element.html?e=wildamore" data-e="wildamore" target="_top"><span class="morpho-mega-number">01</span><span>Wildamore</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=siren" data-e="siren" target="_top"><span class="morpho-mega-number">02</span><span>Siren</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=ember" data-e="ember" target="_top"><span class="morpho-mega-number">03</span><span>Ember</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=horizon" data-e="horizon" target="_top"><span class="morpho-mega-number">04</span><span>Horizon</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=summit" data-e="summit" target="_top"><span class="morpho-mega-number">05</span><span>Summit</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=mirage" data-e="mirage" target="_top"><span class="morpho-mega-number">06</span><span>Mirage</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=halcyon" data-e="halcyon" target="_top"><span class="morpho-mega-number">07</span><span>Halcyon</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="element.html?e=astoria" data-e="astoria" target="_top"><span class="morpho-mega-number">08</span><span>Astoria</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></nav>
+<p class="morpho-mega-description" id="mega-desc"></p>
+</div>
 
-<header class="water-header">
-  <a href="index.html" aria-label="The Meridyan — home"><img src="site-files/emblem.avif" alt="The Meridyan" width="120" height="120" style="width:44px;height:44px;object-fit:contain"></a>
-  <span class="water-header-page">Our Story</span>
-  <div>
-    <nav class="story-navlinks" aria-label="Site">
-      <a class="active" href="our-story.html">Our Story</a>
-      <a href="#">Retreats</a>
-      <a href="https://iybdesigns.wixstudio.com/meridyan1/workshop">Workshops</a>
-      <a href="#">Rooted Rewards</a>
-      <a href="#">Connect</a>
-    </nav>
-    <a class="water-shop" href="#">Shop The Meridyan</a>
-  </div>
-</header>
+</div>
+<div class="morpho-mega-bottom">
+<a href="connect.html" target="_top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg><span>Let&rsquo;s talk. <strong>Connect</strong></span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+<div><span>From the elements, with love.</span></div>
+</div>
+</section></header>
 
-<nav class="water-chapters" aria-label="Story chapters">
-  <p class="water-chapter-count">01—06<i>Our Story</i></p>
-  <a href="#story-begin"><i></i><span>The Beginning</span></a>
-  <a href="#story-trees"><i></i><span>Crystal Trees</span></a>
-  <a href="#story-meridyan"><i></i><span>What Is The Meridyan</span></a>
-  <a href="#story-way"><i></i><span>The Meridyan Way</span></a>
-  <a href="#story-kaitlyn"><i></i><span>My Short Story</span></a>
-  <a href="#story-close"><i></i><span>Your Story</span></a>
-</nav>
+
+
+
 
 <main id="water-story">
 
@@ -75,10 +99,10 @@
       <div class="water-film"><img class="sky" src="site-files/sky1.jpg" alt="Sky"></div>
       <div class="water-shade"></div>
       <div class="water-copy">
-        <img class="water-emblem" src="site-files/emblem.avif" alt="" width="120" height="120">
+        
         <p class="water-eyebrow">OUR STORY · CREATIVITY, CONNECTION, CONTRIBUTION</p>
         <h1 id="story-heading-sky">Creativity brought me<em>back to myself.</em></h1>
-        <p class="water-description" data-scroll-reading="true">Making. Meaning. Belonging.</p>
+        <p class="water-description">Making. Meaning. Belonging.</p>
         <a class="water-start" href="#story-begin"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>SCROLL TO FOLLOW THE STORY</a>
       </div>
     </div>
@@ -87,15 +111,15 @@
   <!-- 01 THE BEGINNING -->
   <section class="water-chapter water-rain" id="story-begin" aria-labelledby="story-heading-begin">
     <div class="water-stage">
-      <div class="water-film"><video muted playsinline preload="none" poster="site-files/mist.jpg" data-src="assets/user/wildamore.mp4"></video></div>
+      <div class="water-film"><img src="site-files/nature5.jpg" alt="Wildamore landscape"></div>
       <div class="water-shade"></div>
       <div class="water-copy">
         <p class="water-eyebrow">01 / THE BEGINNING</p>
         <h2 id="story-heading-begin">It started with<em>a need.</em></h2>
         <p class="water-description" data-scroll-reading="true">The Meridyan began during a season of my life when I needed somewhere to put my hands, my mind, and my energy.</p>
-        <p class="water-description" data-scroll-reading="true" style="margin-top:18px">I started creating, not because I had a business plan, but because making things gave me a sense of purpose and belonging that I had been missing.</p>
+        <p class="water-description" data-scroll-reading="true" style="margin-top:0">I started creating, not because I had a business plan, but because making things gave me a sense of purpose and belonging that I had been missing.</p>
       </div>
-      <span class="water-frame-note">A SEASON OF MAKING<i></i>THE MERIDYAN</span>
+      
     </div>
   </section>
 
@@ -107,9 +131,9 @@
       <div class="water-copy">
         <p class="water-eyebrow">02 / CRYSTAL TREES</p>
         <h2 id="story-heading-trees">Little pieces became<em>something bigger.</em></h2>
-        <p class="water-description" data-scroll-reading="true">Eventually, a few pieces became crystal trees. Those trees became gifts. Gifts became orders. Orders became workshops. And somewhere along the way, The Meridyan became something much bigger than the things I was making.</p>
+        <p class="water-description">Eventually, a few pieces became crystal trees. Those trees became gifts. Gifts became orders. Orders became workshops. And somewhere along the way, The Meridyan became something much bigger than the things I was making.</p>
       </div>
-      <span class="water-frame-note">PIECES TO PURPOSE<i></i>THE MERIDYAN</span>
+      
     </div>
   </section>
 
@@ -121,10 +145,10 @@
       <div class="water-copy">
         <p class="water-eyebrow">03 / WHAT IS THE MERIDYAN?</p>
         <h2 id="story-heading-meridyan">A creative space built around<em>three things.</em></h2>
-        <p class="water-description" data-scroll-reading="true">Connection, contribution, and creation. We make things. We gather around tables. We learn from each other. We give meaningful gifts. We support people when we can. We create space for individuality without losing sight of the fact that we're all part of something bigger.</p>
-        <p class="water-description" data-scroll-reading="true" style="margin-top:18px">Some days that looks like a crystal tree workshop. Sometimes it's a handmade piece created for someone going through a major season of life. And as The Meridyan grows, I hope it becomes a platform for experiences, community, generosity, collaboration, and a whole lot of beautiful uniqueness.</p>
+        <p class="water-description">Connection, contribution, and creation. We make things. We gather around tables. We learn from each other. We give meaningful gifts. We support people when we can. We create space for individuality without losing sight of the fact that we're all part of something bigger.</p>
+        <p class="water-description" style="margin-top:18px">Some days that looks like a crystal tree workshop. Sometimes it's a handmade piece created for someone going through a major season of life. And as The Meridyan grows, I hope it becomes a platform for experiences, community, generosity, collaboration, and a whole lot of beautiful uniqueness.</p>
       </div>
-      <span class="water-frame-note">MADE TO BE PART OF IT<i></i>THE MERIDYAN</span>
+      
     </div>
   </section>
 
@@ -142,7 +166,7 @@
           <div><h3>Creation</h3><p>Experimenting, learning, screwing things up, trying again, and creating something that didn't exist before.</p></div>
         </div>
       </div>
-      <span class="water-frame-note">HOW WE SHOW UP<i></i>THE MERIDYAN</span>
+      
     </div>
   </section>
 
@@ -151,42 +175,22 @@
     <div class="water-stage">
       <div class="water-copy">
         <p class="water-eyebrow">05 / MY SHORT STORY</p>
-        <h2 id="story-heading-kaitlyn">Hi, I'm<em>Kaitlyn.</em></h2>
+        <h2 id="story-heading-kaitlyn">Hi, I'm <em>Kaitlyn.</em></h2>
         <div class="story-long">
           <p>I didn't set out to become an artist.</p>
-          <p>After leaving the corporate world in 2025, I went through one of the hardest periods of my life. For months, I felt disconnected from myself, my purpose, and unsure of what came next.</p>
-          <p>Eventually, I started making things as a way to feel purposeful again.</p>
-          <p>I taught myself as I went. My first crystal trees were literally glued to paper plates. They weren't exactly destined for an art museum, but making them made me feel something I hadn't felt in a while: excited.</p>
-          <p>So I kept going.</p>
-          <p>I experimented. I made mistakes. I learned.</p>
-          <p>People started asking if they could buy what I was creating. Then they trusted me with pieces connected to their relationships, losses, new beginnings, celebrations, and stories.</p>
-          <p>That's when I realized this wasn't really about crystals or wire.</p>
-          <p>It was about what we attach meaning to, and what happens when we create with intention.</p>
+          <p>After leaving the corporate world in 2025, I went through one of the hardest periods of my life. For months, I felt disconnected from myself, my purpose, and unsure of what came next. Eventually, I started making things as a way to feel purposeful again. I taught myself as I went. My first crystal trees were literally glued to paper plates. They weren't exactly destined for an art museum, but making them made me feel something I hadn't felt in a while: excited.</p>
+          <p>So I kept going. I experimented. I made mistakes. I learned. People started asking if they could buy what I was creating. Then they trusted me with pieces connected to their relationships, losses, new beginnings, celebrations, and stories. That's when I realized this wasn't really about crystals or wire. It was about what we attach meaning to, and what happens when we create with intention.</p>
         </div>
       </div>
-      <span class="water-frame-note">TOLD IN HER OWN WORDS<i></i>THE MERIDYAN</span>
-    </div>
-  </section>
-
-  <!-- CLOSING -->
-  <section class="water-chapter water-carry" id="story-close" aria-labelledby="story-heading-close">
-    <div class="water-stage">
-      <div class="water-film"><video muted playsinline preload="none" poster="site-files/sky1.jpg" data-src="assets/user/summit.mp4"></video></div>
-      <div class="water-shade"></div>
-      <div class="water-copy">
-        <img class="water-emblem" src="site-files/emblem.avif" alt="" width="120" height="120">
-        <p class="water-eyebrow">THE MERIDYAN</p>
-        <h2 id="story-heading-close">Your story could<em>start here.</em></h2>
-        <div class="story-links">
-          <a class="btn-line" href="index.html">Back to the beginning</a>
-          <a class="btn-line" href="https://iybdesigns.wixstudio.com/meridyan1/workshop">Explore the workshops</a>
-          <a class="btn-line" href="#">Connect with us</a>
-        </div>
-      </div>
+      
     </div>
   </section>
 
 </main>
+
+<div class="morpho-outro">
+<footer class="flow-footer morpho-footer"><div class="footer-story"><h2 class="footer-signature"><span>Connect</span></h2><div class="footer-invitation"><p>The Meridyan is a creative space rooted in connection, contribution, and creation. Explore handmade pieces, create something uniquely yours, or join an experience designed to bring creativity to life.</p><a class="footer-shop" href="elements.html?type=retreats" target="_top">View Retreats<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="footer-shop" href="elements.html?type=workshops" target="_top">View Workshops<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></div><section class="footer-connect" id="newsletter" aria-labelledby="newsletter-title"><div class="footer-connect-copy"><h3 id="newsletter-title">Stay in the<!-- --> <em>know.</em></h3></div><form class="footer-subscribe"><label for="morpho-newsletter-email">Your email address</label><div class="footer-email-line"><input id="morpho-newsletter-email" type="email" autocomplete="email" placeholder="you@example.com" required="" maxlength="254" name="email"><button type="submit">Subscribe<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></button></div><p class="footer-form-status" role="status"> </p></form></section><div class="footer-legal"><span>© <!-- -->2026<!-- --> The Meridyan</span><nav aria-label="Legal information"><span>Privacy Policy</span><span>Terms of Service</span><span>Legal notice &amp; contact</span><span>Cookie settings</span></nav></div><dialog class="footer-legal-dialog" aria-labelledby="legal-dialog-title"><div class="legal-sheet"><header><span>THE MERIDYAN</span><button type="button" aria-label="Close legal document" autofocus=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></header><h2 id="legal-dialog-title">Privacy Policy</h2><div class="legal-document" lang="en"></div></div></dialog></footer>
+</div>
 
 <script>
 (function () {
@@ -238,8 +242,12 @@
       var r = ch.getBoundingClientRect();
       var s = clamp(-r.top / Math.max(1, r.height - h));
       ch.style.setProperty('--journey', s.toFixed(4));
-      var l = ss(0.02, 0.68, s);
-      reads[i].forEach(function (el) { el.style.setProperty('--read-progress', l.toFixed(4)); });
+      var rn = reads[i].length;
+      reads[i].forEach(function (el, j) {
+        var w = 0.86 / Math.max(1, rn);
+        var l = ss(0.02 + j * w, 0.02 + (j + 1) * w, s);
+        el.style.setProperty('--read-progress', l.toFixed(4));
+      });
       if (r.top <= h * 0.45) setCurrent(i);
       // video: active while this chapter owns the viewport
       var active = r.top < h * 0.75 && r.bottom > h * 0.25;
@@ -257,5 +265,6 @@
   frame();
 })();
 </script>
+<script src="nav.js?v=4"></script>
 </body>
 </html>

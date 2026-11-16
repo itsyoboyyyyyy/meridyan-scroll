@@ -417,8 +417,6 @@
       if (blr.top < window.innerHeight * 2.5 && blr.bottom > -window.innerHeight) preloadSounds();
       if (blr.top < window.innerHeight && blr.bottom > window.innerHeight * 0.65) {
         setSectionSound(SOUND_FILES[lastBeat] || 'wildamore');
-      } else {
-        duckSounds();
       }
     }
     document.querySelectorAll('.territory-journey').forEach(territory);
@@ -488,6 +486,7 @@
   }
   function setSoundEnabled(on) {
     soundOn = on;
+    try{localStorage.setItem("meridyanSound",on?"1":"0");}catch(e){}
     if (on) {
       soundDucked = false;
       preloadSounds();
