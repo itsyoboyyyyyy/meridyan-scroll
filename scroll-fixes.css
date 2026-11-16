@@ -505,3 +505,11 @@ html { scroll-behavior: smooth; }
 
 /* Header wordmark nudge right */
 .morpho-header-logo { margin-left: 50px; }
+
+/* Nav rearrange: player beside logo, account + cart on right */
+.morpho-header { justify-content: flex-start; }
+.morpho-header > .site-player { pointer-events: auto; display: flex; align-items: center; }
+.morpho-header .morpho-header-actions { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+.morpho-header .morpho-header-login { font-size: 12px; color: #fff; white-space: nowrap; letter-spacing: .3px; }
+.morpho-header .morpho-header-cart { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; }
+.morpho-header .morpho-header-cart:hover { color: #d0edff; }
