@@ -205,8 +205,8 @@
     shots.forEach(function (shot, i) {
       var a0 = i * act, a1 = (i + 1) * act;
       var local = clamp((p - a0) / (a1 - a0));
-      var fin = i === 0 ? 1 : ss(a0 - 0.05, a0 + 0.02, p);
-      var fout = i === n - 1 ? 1 : (1 - ss(a1 - 0.02, a1 + 0.1, p));
+      var fin = i === 0 ? 1 : ss(a0 - 0.04, a0 + 0.04, p);
+      var fout = i === n - 1 ? 1 : (1 - ss(a1 - 0.04, a1 + 0.04, p));
       var op = fin * fout;
       setVar(shot, '--film-opacity', op.toFixed(4));
       var video = shot.querySelector('video');

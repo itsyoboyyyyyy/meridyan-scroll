@@ -371,10 +371,10 @@ html { scroll-behavior: smooth; }
 /* Hero: center left-column text within the left half of the screen (desktop) */
 @media (min-width: 701px) {
   .flow-page .flow-opening-content {
-    left: 4% !important;
+    left: 3% !important;
     width: 42% !important;
     text-align: center;
-    transform: translateY(3vh) !important;
+    transform: translateY(0vh) !important;
   }
 }
 .flow-page .flow-copy .flow-description { max-width: none !important; }
@@ -441,4 +441,47 @@ html { scroll-behavior: smooth; }
 .flow-opening-product-frame .hero-collage img:nth-child(2),
 .flow-opening-product-frame .hero-collage img:nth-child(4) {
   object-position: center 22%;
+}
+
+/* Header: Meridyan logo image replaces text wordmark */
+.morpho-header-logo img.meridyan-logo-img {
+  height: 92px;
+  width: auto !important;
+  max-width: none !important;
+  display: block;
+}
+@media (max-width: 700px) {
+  .morpho-header-logo img.meridyan-logo-img { height: 56px; width: auto !important; max-width: none !important; }
+}
+
+/* Hero: logo overlaid centered on the headline */
+.flow-page .flow-opening-content .flow-copy { position: relative; }
+.flow-copy .hero-badge-logo {
+  position: absolute;
+  left: 2%;
+  top: 24%;
+  transform: translateY(calc(-50% + 10px));
+  height: clamp(170px, 17vw, 230px);
+  width: auto;
+  margin: 0;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.5));
+}
+
+
+/* Hero: headline left-aligned beside logo, kept in place */
+.flow-copy h1 { text-align: left !important; padding-left: calc(34% - 52px); }
+.flow-page .flow-copy h1 { transform: translateX(18%) !important; }
+
+/* Header: text wordmark in Georgia */
+.meridyan-wordmark {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  padding-left: .28em;
+  color: #fff;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .meridyan-wordmark { font-size: 13px; letter-spacing: .2em; }
 }
