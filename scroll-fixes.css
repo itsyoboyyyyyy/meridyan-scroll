@@ -535,3 +535,27 @@ html { scroll-behavior: smooth; }
 /* Shop button matched to player pill scale */
 .morpho-header .morpho-header-shop { height: 44px; min-height: 0; padding: 0 14px; font-size: 10px; gap: 7px; }
 .morpho-header .morpho-header-shop > svg { width: 13px; height: 13px; }
+
+/* Element hover dropdowns */
+.nav-drop{position:relative;display:flex}
+.nav-drop>nav .nav-drop-panel{top:calc(100% + 16px)}
+.nav-drop-panel{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%);min-width:210px;background:#101820f2;border:1px solid #d0edff30;border-radius:16px;padding:10px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:300;box-shadow:0 18px 50px #00000066}
+.nav-drop:hover .nav-drop-panel,.nav-drop:focus-within .nav-drop-panel{opacity:1;visibility:visible}
+.nav-drop-panel a{display:block;padding:10px 14px;font-size:12px;color:#fff;border-radius:10px;text-decoration:none;white-space:nowrap}
+.nav-drop-panel a:hover{background:#d0edff14;color:#d0edff}
+@media(max-width:700px){.nav-drop-panel{display:none}}
+
+/* MORPHO-style mega dropdown */
+.nav-drop-panel.nav-mega{left:50%;top:calc(100% + 14px);transform:translateX(-50%);width:min(680px,calc(100vw - 48px));min-width:0;flex-direction:row;gap:0;padding:12px;border-radius:20px;overflow:hidden}
+.nav-mega-media{width:46%;flex-shrink:0;border-radius:14px;overflow:hidden;background:#0b1116;position:relative}
+.nav-mega-media video{width:100%;height:100%;object-fit:cover;display:block;min-height:220px}
+.nav-mega-list{flex:1;display:flex;flex-direction:column;justify-content:center;padding:6px 4px 6px 14px;gap:2px}
+.nav-mega-list a{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border-radius:12px;text-decoration:none}
+.nav-mega-list a .nm{font-size:13px;color:#fff;font-weight:400}
+.nav-mega-list a small{font-size:10px;color:#ffffff8c;font-family:"Publico Headline",Georgia,serif;font-style:italic}
+.nav-mega-list a:hover,.nav-mega-list a:focus-visible{background:#d0edff12}
+.nav-mega-list a:hover .nm,.nav-mega-list a:focus-visible .nm{color:#d0edff}
+@media(max-width:900px){.nav-drop-panel.nav-mega{flex-direction:column}.nav-mega-media{width:100%}.nav-mega-media video{min-height:160px}}
+@media(max-width:700px){.morpho-mega{display:none!important}}
+.morpho-mega-body{grid-template-columns:300px minmax(0,1fr)!important}
+
