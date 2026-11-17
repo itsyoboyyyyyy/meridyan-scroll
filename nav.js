@@ -1,5 +1,28 @@
 // Meridyan mega menu — MORPHO-style element browser
 document.addEventListener('DOMContentLoaded',function(){
+  var player=document.querySelector('.morpho-header>.site-player');
+  var notchBar=document.querySelector('.morpho-notch-bar');
+  if(player&&notchBar)notchBar.appendChild(player);
+
+  // size the notch pill to fit its contents (same math as scroll-engine)
+  function sizeNotch(){
+    var bar=document.querySelector('.morpho-notch-bar');
+    var glass=document.querySelector('.morpho-notch-glass');
+    var shape=document.querySelector('.morpho-notch-shape');
+    if(!bar||!glass||!shape||!bar.getClientRects().length)return;
+    var w=Math.ceil(bar.offsetWidth+44);
+    var dFill='M0,0 A22,22 0 0 1 22,22 L22,44 A18,18 0 0 0 40,62 L'+(w-40)+',62 A18,18 0 0 0 '+(w-22)+',44 L'+(w-22)+',22 A22,22 0 0 1 '+w+',0 Z';
+    var dEdge=dFill.slice(0,-2);
+    glass.style.width=w+'px';
+    glass.style.clipPath='path("M 0 0 A 22 22 0 0 1 22 22 L 22 44 A 18 18 0 0 0 40 62 L '+(w-40)+' 62 A 18 18 0 0 0 '+(w-22)+' 44 L '+(w-22)+' 22 A 22 22 0 0 1 '+w+' 0 Z")';
+    shape.style.width=w+'px';
+    shape.setAttribute('viewBox','0 0 '+w+' 62');
+    shape.querySelectorAll('path').forEach(function(p){p.setAttribute('d',p.classList.contains('morpho-notch-edge')?dEdge:dFill);});
+  }
+  sizeNotch();
+  window.addEventListener('load',sizeNotch);
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(sizeNotch,120);});
+
   var mega=document.getElementById('meridyan-mega');
   if(!mega)return;
   var video=mega.querySelector('video');
@@ -10,6 +33,7 @@ document.addEventListener('DOMContentLoaded',function(){
   var header=document.querySelector('.morpho-header');
   var TAGLINES={"wildamore": "Where Curiosity Grows Wild", "siren": "Where the Waves Take You", "ember": "What Remains Can Rise", "horizon": "Where Perspective Meets Possibility", "summit": "Great Heights Begin Within", "mirage": "Not All Who Wander Are Lost", "halcyon": "The Beauty of Simply Being", "astoria": "Question Everything. Imagine Anything."};
   var MENUS={
+    elements:{eyebrow:'THE EIGHT ELEMENTS',desc:'Eight elements. One world — explore each one and find where you belong.'},
     workshops:{eyebrow:'CREATE WITH YOUR COMMUNITY',desc:'Our workshops are about more than making a crystal tree — a chance to slow down, try something new, laugh a little, connect with the people around you, and leave with something you created entirely by hand.'},
     retreats:{eyebrow:'GATHER. GROW. TOGETHER.',desc:'Immersive retreats for every element — time away to reconnect, create, and return renewed.'}
   };

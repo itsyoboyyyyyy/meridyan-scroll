@@ -487,20 +487,22 @@ html { scroll-behavior: smooth; }
 }
 
 /* Player pill lives in the header next to Shop */
-.morpho-header-actions .site-player {
-  position: static;
-  margin: 0;
-  height: 50px;
-  padding: 0;
-  flex-shrink: 0;
+.morpho-notch-bar .site-player {
+  position: static; right: auto; bottom: auto; z-index: auto;
+  display: flex; align-items: center; height: 40px; padding: 0 4px; gap: 2px;
+  flex-shrink: 0; margin: 0 0 0 10px; pointer-events: auto;
+  border: 0; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none;
+  box-shadow: none; color: #fff;
 }
-.morpho-header-actions .site-player > button {
-  min-height: 44px;
-  font-size: 11px;
-  padding: 0 14px;
-  gap: 6px;
+.morpho-notch-bar .site-player > button {
+  min-height: 36px; font-size: 11px; padding: 0 10px; gap: 6px;
 }
-.morpho-header-actions .site-player > button > svg { width: 15px; height: 15px; }
+.morpho-notch-bar .site-player > button > svg { width: 14px; height: 14px; }
+.morpho-notch-bar .site-player .site-sound-toggle { border-left: 1px solid #d0edff29; }
+@media (max-width: 1150px) {
+  .morpho-notch-bar .site-player > button > span { display: none; }
+  .morpho-notch-bar .site-player > button { padding: 0 9px; min-width: 34px; }
+}
 .morpho-header-actions .morpho-header-shop { flex-shrink: 0; }
 
 /* Header wordmark nudge right */
@@ -508,25 +510,19 @@ html { scroll-behavior: smooth; }
 
 /* Nav rearrange: player beside logo, account + cart on right */
 .morpho-header { justify-content: flex-start; }
-.morpho-header > .site-player { pointer-events: auto; display: flex; align-items: center; }
 .morpho-header .morpho-header-actions { margin-left: auto; display: flex; align-items: center; gap: 14px; }
 .morpho-header .morpho-header-login { font-size: 12px; color: #fff; white-space: nowrap; letter-spacing: .3px; }
 .morpho-header .morpho-header-cart { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; }
 .morpho-header .morpho-header-cart:hover { color: #d0edff; }
 
 /* Player pill inline in header, right of logo */
-.morpho-header > .site-player { position: static; right: auto; bottom: auto; height: 44px; padding: 0 12px; gap: 4px; flex-shrink: 0; margin-left: 34px; }
-.morpho-header > .site-player button { font-size: 11px; }
-.morpho-header > .site-player button > svg { width: 14px; height: 14px; }
+
 
 @media (max-width: 1000px) {
   .morpho-header-logo { margin-left: -24px; }
-  .morpho-header > .site-player { margin-left: 18px; height: 40px; padding: 0 9px; }
 }
 @media (max-width: 700px) {
   .morpho-header-logo { margin-left: -12px; }
-  .morpho-header > .site-player { margin-left: 10px; height: 36px; padding: 0 7px; gap: 2px; }
-  .morpho-header > .site-player button { font-size: 9px; }
   .morpho-header .morpho-header-actions { gap: 8px; }
   .morpho-header .morpho-header-login { font-size: 10px; }
   .morpho-header .morpho-header-cart { width: 30px; height: 30px; }
