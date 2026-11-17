@@ -84,3 +84,14 @@ document.addEventListener('DOMContentLoaded',function(){
     video.addEventListener('pause',function(){if(!userPaused)toggle.innerHTML=PLAY;});
   }
 });
+
+(function(){
+  var bar=document.createElement('div');
+  bar.className='meridyan-announce';
+  bar.innerHTML='<span>We’re moving to Oregon — follow the journey.</span><button type="button" aria-label="Dismiss announcement">×</button>';
+  document.body.prepend(bar);
+  document.documentElement.classList.add('has-announce');
+  bar.querySelector('button').addEventListener('click',function(){
+    bar.remove();document.documentElement.classList.remove('has-announce');
+  });
+})();

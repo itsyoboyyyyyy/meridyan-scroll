@@ -555,3 +555,13 @@ html { scroll-behavior: smooth; }
 @media(max-width:700px){.morpho-mega{display:none!important}}
 .morpho-mega-body{grid-template-columns:300px minmax(0,1fr)!important}
 
+
+
+
+.meridyan-announce{position:fixed;top:0;left:0;right:0;height:36px;z-index:160;display:flex;align-items:center;justify-content:center;background:#0b1621;color:#eaf4fb;font-family:Gotham,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:0 48px;box-sizing:border-box}
+.meridyan-announce span{text-align:center}
+.meridyan-announce button{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:0;color:#eaf4fb;font-size:17px;line-height:1;cursor:pointer;opacity:.55;padding:6px 8px}
+.meridyan-announce button:hover{opacity:1}
+html.has-announce{--ann-h:36px}
+html.has-announce .morpho-header{top:var(--ann-h)}
+@media(max-width:700px){.meridyan-announce{height:32px;font-size:9px;letter-spacing:.09em;padding:0 40px 0 12px}.meridyan-announce span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meridyan-announce button{right:4px}html.has-announce{--ann-h:32px}}
