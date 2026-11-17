@@ -183,6 +183,11 @@ document.addEventListener('DOMContentLoaded',function(){
     var frameOpen=false;
     trig.addEventListener('click',function(){frameOpen=!frameOpen;window.parent.postMessage({meridyanMenu:frameOpen},'*');});
     window.addEventListener('message',function(e){if(e.data==='meridyanMenuClose')frameOpen=false;});
+    // Desktop Wix nav: forward dropdown hover to the parent page menu overlay
+    document.querySelectorAll('.nav-drop[data-menu]').forEach(function(d){
+      d.addEventListener('mouseenter',function(){window.parent.postMessage({meridyanMenu:true},'*');});
+      d.addEventListener('mouseleave',function(){window.parent.postMessage({meridyanMenu:false},'*');});
+    });
     return;
   }
   var panel=document.createElement('div');
