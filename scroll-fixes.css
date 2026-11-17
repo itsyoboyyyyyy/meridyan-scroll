@@ -565,3 +565,53 @@ html { scroll-behavior: smooth; }
 html.has-announce{--ann-h:36px}
 html.has-announce .morpho-header{top:var(--ann-h)}
 @media(max-width:700px){.meridyan-announce{height:32px;font-size:9px;letter-spacing:.09em;padding:0 40px 0 12px}.meridyan-announce span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meridyan-announce button{right:4px}html.has-announce{--ann-h:32px}}
+
+/* Hero: two scroll screens — text group, then big centered collage (desktop) */
+@media (min-width: 701px) {
+  .flow-journey { height: 300vh; }
+  .flow-page .flow-opening-content {
+    left: 50% !important;
+    top: 50% !important;
+    width: min(760px, 92%) !important;
+    transform: translate(-50%, -50%) !important;
+    opacity: calc(1 - var(--hero-text-out, 0));
+    translate: 0 calc(var(--hero-text-out, 0) * -7vh);
+  }
+  .flow-page .flow-opening-content .flow-copy {
+    top: auto !important;
+    left: 0 !important;
+  }
+  .flow-page .flow-copy .flow-description { max-width: 640px; }
+  .flow-page .flow-copy h1 { font-size: clamp(54px, 6.4vw, 102px) !important; }
+  .flow-bottom { opacity: calc(1 - var(--hero-collage-in, 0)); }
+  .flow-opening-product-frame .hero-collage {
+    left: 50% !important;
+    right: auto !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(640px, 82%) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    opacity: var(--hero-collage-in, 0);
+    translate: 0 calc((1 - var(--hero-collage-in, 0)) * 7vh);
+  }
+}
+
+/* Hero collage arrows */
+@media (min-width: 701px) {
+  .hero-collage { position: relative; }
+  .hero-collage .hero-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(11,22,33,.45); border: 1px solid rgba(255,255,255,.28);
+    color: #fff; cursor: pointer; z-index: 3; pointer-events: auto;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: background .2s, border-color .2s;
+    padding: 0;
+  }
+  .hero-collage .hero-nav-prev { left: 10px; }
+  .hero-collage .hero-nav-next { right: 10px; }
+  .hero-collage .hero-nav:hover { background: rgba(11,22,33,.7); border-color: rgba(255,255,255,.6); }
+  .hero-collage img { animation: hero-img-in .35s ease; }
+  @keyframes hero-img-in { from { opacity: 0; } to { opacity: 1; } }
+}

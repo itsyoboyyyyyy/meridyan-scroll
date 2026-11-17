@@ -97,7 +97,7 @@
     setVar(hero, '--scene-exit', ss(0.92, 1, p).toFixed(4));
     setVar(hero, '--nature-exit', '0');
     var desc = stage.querySelector('[data-scroll-reading]');
-    setRead(desc, ss(0.05, 0.88, p));
+    setRead(desc, ss(0.04, 0.46, p));
     var introRight = stage.querySelector('.flow-intro-right') || hero.querySelector('.flow-intro-right');
     if (introRight) introRight.style.opacity = (1 - ss(0.78, 0.95, p)).toFixed(3);
   }
