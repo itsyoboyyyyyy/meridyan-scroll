@@ -742,3 +742,10 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 #flow-hero .flow-stage{background:linear-gradient(rgba(16,24,32,.68),rgba(16,24,32,.8)),url(site-files/nature1.jpg) center/cover no-repeat,#101820}
 #flow-hero .flow-description{display:block!important;font-size:14px;line-height:1.7;max-width:320px}
 }
+
+@media(max-width:700px){
+#flow-hero .flow-copy{text-align:center}
+#flow-hero .flow-copy .hero-badge-logo{position:static;transform:none;height:104px;width:auto;margin:0 auto 22px}
+#flow-hero .flow-copy h1{padding-left:0!important;transform:none!important;text-align:center!important}
+#flow-hero .flow-copy .flow-description{margin-left:auto;margin-right:auto}
+}
