@@ -704,7 +704,7 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 .mega-static .morpho-mega-eyebrow{font-size:12px!important;letter-spacing:.16em}
 .mega-static .morpho-mega-description{font-size:16px!important;line-height:1.7}
 .mega-static .morpho-mega-links nav a{min-height:48px;font-size:15px}
-.elements-hero,.el-hero{min-height:100vh}
+.elements-hero,body.flow-page .el-hero{min-height:100vh}
 }
 
 /* ===== Experience pages: intro + element video cards ===== */
