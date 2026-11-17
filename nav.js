@@ -157,6 +157,12 @@ document.addEventListener('DOMContentLoaded',function(){
   }
   makeBtn('hero-nav-prev','Previous photos',true);
   makeBtn('hero-nav-next','Next photos',false);
+  var tx=0,ty=0;
+  collage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  collage.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(gi+(dx<0?1:-1));
+  },{passive:true});
   function show(g){
     gi=(g+groups)%groups;
     var vis=[];
