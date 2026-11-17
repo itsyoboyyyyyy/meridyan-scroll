@@ -731,3 +731,8 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 }
 
 .morpho-header>.site-player{visibility:hidden}
+
+@media(max-width:700px){
+#flow-essential .blue-life-stories{top:22%;height:56%}
+#flow-essential .blue-life-top{top:12%}
+}
