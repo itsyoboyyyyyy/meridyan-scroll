@@ -729,3 +729,5 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 .mmm-sub{padding-left:0;text-align:center}
 .mmm-el::before{display:none}
 }
+
+.morpho-header>.site-player{visibility:hidden}
