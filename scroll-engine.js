@@ -136,7 +136,7 @@
       var video = panel.querySelector('.territory-film-image');
       if (video) {
         video.style.opacity = op.toFixed(3);
-        manageVideo(video, op > 0.55);
+        manageVideo(video, op > 0.1);
         video.setAttribute('data-playback', op > 0.55 ? 'playing' : 'paused');
       }
       if (op > bestOp) { bestOp = op; best = i; }
@@ -212,7 +212,7 @@
       var video = shot.querySelector('video');
       if (video) {
         video.style.opacity = op.toFixed(3);
-        manageVideo(video, op > 0.55);
+        manageVideo(video, op > 0.1);
       }
       var shotImg = shot.querySelector('img');
       if (shotImg) shotImg.style.opacity = op.toFixed(3);
