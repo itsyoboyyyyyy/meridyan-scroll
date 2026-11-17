@@ -97,7 +97,10 @@
     setVar(hero, '--scene-exit', ss(0.92, 1, p).toFixed(4));
     setVar(hero, '--nature-exit', '0');
     var desc = stage.querySelector('[data-scroll-reading]');
-    setRead(desc, ss(0.04, 0.46, p));
+    // Mobile text screen hands off at p~0.34; desktop at p~0.58. Finish the
+    // word-by-word read just before each so the final word fully highlights.
+    var mobRead = window.matchMedia('(max-width: 700px)').matches;
+    setRead(desc, mobRead ? ss(0.02, 0.30, p) : ss(0.04, 0.52, p));
     var introRight = stage.querySelector('.flow-intro-right') || hero.querySelector('.flow-intro-right');
     if (introRight) introRight.style.opacity = (1 - ss(0.78, 0.95, p)).toFixed(3);
   }

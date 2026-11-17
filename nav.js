@@ -114,12 +114,16 @@ document.addEventListener('DOMContentLoaded',function(){
       var pastEnd=Math.min(1,Math.max(0,(p-0.88)/0.12));
       stage.style.setProperty('--hero-text-out',t.toFixed(4));
       stage.style.setProperty('--hero-collage-in',(c*(1-pastEnd)).toFixed(4));
+      // Fade the mobile nature backdrop out before the section handoff so the
+      // next scene doesn't crossfade over the first section's photo.
+      stage.style.setProperty('--hero-bg',(1-Math.min(1,Math.max(0,(p-0.80)/0.15))).toFixed(4));
       return;
     }
     var t=Math.min(1,Math.max(0,(p-0.40)/0.18));
     var c=Math.min(1,Math.max(0,(p-0.55)/0.20));
     stage.style.setProperty('--hero-text-out',t.toFixed(4));
     stage.style.setProperty('--hero-collage-in',c.toFixed(4));
+    stage.style.setProperty('--hero-bg','1');
   }
   window.addEventListener('scroll',upd,{passive:true});
   window.addEventListener('resize',upd);
