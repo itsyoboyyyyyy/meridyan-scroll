@@ -109,9 +109,9 @@ document.addEventListener('DOMContentLoaded',function(){
     var p=total>0?Math.min(1,Math.max(0,(window.scrollY-top)/total)):0;
     if(!mq.matches){
       // mobile: text screen, then full-bleed collage screen
-      var t=Math.min(1,Math.max(0,(p-0.30)/0.22));
-      var c=Math.min(1,Math.max(0,(p-0.45)/0.30));
-      var pastEnd=Math.min(1,Math.max(0,(window.scrollY+vh-(top+journey.offsetHeight))/(vh*0.6)));
+      var t=Math.min(1,Math.max(0,(p-0.14)/0.20));
+      var c=Math.min(1,Math.max(0,(p-0.34)/0.20));
+      var pastEnd=Math.min(1,Math.max(0,(p-0.88)/0.12));
       stage.style.setProperty('--hero-text-out',t.toFixed(4));
       stage.style.setProperty('--hero-collage-in',(c*(1-pastEnd)).toFixed(4));
       return;

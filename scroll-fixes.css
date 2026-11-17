@@ -70,7 +70,7 @@ html { scroll-behavior: smooth; }
 
 /* Hero trimmed to intro + "A small click" — shorter scroll, same handoff */
 .flow-journey { height: 200vh; }
-@media (max-width: 700px) { .flow-journey { height: 190vh; } }
+@media (max-width: 700px) { .flow-journey { height: 260vh; } }
 
 /* Element definition tag under each beat kicker */
 .blue-life-element {
