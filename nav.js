@@ -103,11 +103,19 @@ document.addEventListener('DOMContentLoaded',function(){
   var stage=journey.querySelector('.flow-stage')||journey;
   var mq=window.matchMedia('(min-width: 701px)');
   function upd(){
-    if(!mq.matches){stage.style.removeProperty('--hero-text-out');stage.style.removeProperty('--hero-collage-in');return;}
     var vh=window.innerHeight;
     var total=journey.offsetHeight-vh;
     var top=journey.getBoundingClientRect().top+window.scrollY;
     var p=total>0?Math.min(1,Math.max(0,(window.scrollY-top)/total)):0;
+    if(!mq.matches){
+      // mobile: text screen, then full-bleed collage screen
+      var t=Math.min(1,Math.max(0,(p-0.30)/0.22));
+      var c=Math.min(1,Math.max(0,(p-0.45)/0.30));
+      var pastEnd=Math.min(1,Math.max(0,(window.scrollY+vh-(top+journey.offsetHeight))/(vh*0.6)));
+      stage.style.setProperty('--hero-text-out',t.toFixed(4));
+      stage.style.setProperty('--hero-collage-in',(c*(1-pastEnd)).toFixed(4));
+      return;
+    }
     var t=Math.min(1,Math.max(0,(p-0.40)/0.18));
     var c=Math.min(1,Math.max(0,(p-0.55)/0.20));
     stage.style.setProperty('--hero-text-out',t.toFixed(4));
@@ -170,6 +178,13 @@ document.addEventListener('DOMContentLoaded',function(){
   var trig=document.querySelector('.morpho-mobile-trigger');
   var nav=document.querySelector('.morpho-main-nav');
   if(!trig||!nav)return;
+  // Inside the small injected-nav iframe on Wix pages: ask the parent page to open the menu
+  if(window.parent!==window&&window.innerHeight<400){
+    var frameOpen=false;
+    trig.addEventListener('click',function(){frameOpen=!frameOpen;window.parent.postMessage({meridyanMenu:frameOpen},'*');});
+    window.addEventListener('message',function(e){if(e.data==='meridyanMenuClose')frameOpen=false;});
+    return;
+  }
   var panel=document.createElement('div');
   panel.className='morpho-mobile-menu';
   panel.id='morpho-mobile-menu';
