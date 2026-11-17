@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded',function(){
   if(imgs.length<=4)return;
   var PER=4, groups=Math.ceil(imgs.length/PER), gi=0;
   collage.removeAttribute('aria-hidden');
-  collage.style.position='relative';
+  if(window.innerWidth>700)collage.style.position='relative';
   function chevron(left){
     var NS='http://www.w3.org/2000/svg';
     var s=document.createElementNS(NS,'svg');
