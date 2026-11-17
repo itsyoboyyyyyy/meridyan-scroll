@@ -640,3 +640,18 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 @media(max-width:700px){
 .story-pillars{grid-template-columns:1fr;gap:30px}
 }
+
+/* Mobile: move account/cart into the Explore menu */
+@media(max-width:1100px){
+.morpho-header .morpho-header-actions{display:none!important}
+.mmm-tail{margin-top:14px;border-top:1px solid #d0edff1f;padding-top:8px}
+.mmm-tail-link{font-size:clamp(16px,4.2vw,20px)}
+}
+
+/* Mobile: logo moves into the Explore menu */
+@media(max-width:1100px){
+.morpho-header .morpho-header-logo{display:none!important}
+.mmm-logo{display:flex;justify-content:center;padding:6px 0 10px}
+.mmm-logo img{height:44px;width:auto;filter:none}
+.mmm-logo .meridyan-wordmark{font-size:clamp(20px,6vw,26px)!important}
+}

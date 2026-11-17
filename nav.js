@@ -175,6 +175,15 @@ document.addEventListener('DOMContentLoaded',function(){
   panel.id='morpho-mobile-menu';
   var list=document.createElement('nav');
   list.setAttribute('aria-label','Mobile navigation');
+  var logo=document.querySelector('.morpho-header-logo img, .morpho-header-logo');
+  if(logo){
+    var lg=document.createElement('div');
+    lg.className='mmm-logo';
+    var im=logo.tagName==='IMG'?logo:logo.querySelector('img');
+    if(im){var ci=im.cloneNode(true);ci.removeAttribute('width');ci.removeAttribute('height');lg.appendChild(ci);}
+    else lg.innerHTML=logo.innerHTML;
+    list.appendChild(lg);
+  }
   var els=[['wildamore','Wildamore'],['siren','Siren'],['ember','Ember'],['horizon','Horizon'],['summit','Summit'],['mirage','Mirage'],['halcyon','Halcyon'],['astoria','Astoria']];
   nav.querySelectorAll('a').forEach(function(a){
     var c=a.cloneNode(true);
@@ -195,6 +204,21 @@ document.addEventListener('DOMContentLoaded',function(){
       list.appendChild(sub);
     }
   });
+
+  // Mobile-only: add account + cart links at the bottom of the menu
+  var actions=document.querySelector('.morpho-header-actions');
+  if(actions){
+    var tail=document.createElement('div');
+    tail.className='mmm-tail';
+    actions.querySelectorAll('a').forEach(function(a){
+      var c=a.cloneNode(true);
+      c.classList.add('mmm-link','mmm-tail-link');
+      c.removeAttribute('id');
+      if(!c.textContent.trim())c.textContent='Cart';
+      tail.appendChild(c);
+    });
+    list.appendChild(tail);
+  }
   panel.appendChild(list);
   document.body.appendChild(panel);
   function setOpen(open){
