@@ -112,7 +112,7 @@ if(toggle){
 <script>
 document.querySelectorAll('.el-cards video').forEach(function(v){
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en,ob){en.forEach(function(e){if(e.isIntersecting){v.play().catch(function(){});ob.unobserve(v);}else if(!v.paused)v.pause();});},{rootMargin:'200px'}).observe(v);
+    new IntersectionObserver(function(en,ob){en.forEach(function(e){if(e.isIntersecting){if(v.dataset.src&&!v.getAttribute('src')){v.src=v.dataset.src;v.load();}v.play().catch(function(){});ob.unobserve(v);}else if(!v.paused)v.pause();});},{rootMargin:'200px'}).observe(v);
   }else{v.play().catch(function(){});}
 });
 </script>
