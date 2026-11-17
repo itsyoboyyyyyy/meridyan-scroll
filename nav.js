@@ -158,7 +158,8 @@ document.addEventListener('DOMContentLoaded',function(){
       im.style.gridRow='';im.style.gridColumn='';
       if(on)vis.push(im);
     });
-    if(vis.length===2){vis[0].style.gridRow='span 2';vis[1].style.gridRow='span 2';}
+    if(vis.length===1){vis[0].style.gridRow='span 2';vis[0].style.gridColumn='span 2';}
+    else if(vis.length===2){vis[0].style.gridRow='span 2';vis[1].style.gridRow='span 2';}
     else if(vis.length===3){vis[2].style.gridColumn='span 2';}
   }
   show(0);
