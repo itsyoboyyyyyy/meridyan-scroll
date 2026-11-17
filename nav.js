@@ -188,8 +188,10 @@ document.addEventListener('DOMContentLoaded',function(){
   var trig=document.querySelector('.morpho-mobile-trigger');
   var nav=document.querySelector('.morpho-main-nav');
   if(!trig||!nav)return;
-  // Inside the small injected-nav iframe on Wix pages: ask the parent page to open the menu
-  if(window.parent!==window&&window.innerHeight<400){
+  // Inside the injected nav iframe on Wix pages: ask the parent page to open the menu.
+  // Detect by filename, not iframe height — the coded homepage is also embedded
+  // in an iframe on /home2 and may be short at load time before it resizes.
+  if(window.parent!==window&&/nav\.html($|\?)/.test(location.pathname)){
     var frameOpen=false;
     trig.addEventListener('click',function(){frameOpen=!frameOpen;window.parent.postMessage({meridyanMenu:frameOpen},'*');});
     window.addEventListener('message',function(e){if(e.data==='meridyanMenuClose')frameOpen=false;});
