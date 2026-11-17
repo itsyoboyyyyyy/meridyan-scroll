@@ -394,7 +394,7 @@
     if (header) {
       header.querySelectorAll('button').forEach(function (b) {
         b.addEventListener('click', function () {
-          if (b.closest('.morpho-main-nav, .flow-language, .morpho-header-actions a')) return;
+          if (b.closest('.morpho-main-nav, .flow-language, .morpho-header-actions a, .morpho-mobile-trigger')) return;
           header.setAttribute('data-open', header.getAttribute('data-open') === 'true' ? 'false' : 'true');
         });
       });
