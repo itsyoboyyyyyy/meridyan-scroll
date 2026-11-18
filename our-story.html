@@ -100,6 +100,15 @@
     .water-copy.story-split{flex-direction:column;gap:34px;top:50%!important;max-width:640px!important;align-items:flex-start}
     .water-copy.story-split>.story-split-copy{flex:none;max-width:100%}
   }
+
+  /* mobile: Q&A chapters flow normally so tall content is never clipped by the pinned stage */
+  @media (max-width:700px){
+    #story-begin,#story-trees,#story-meridyan{height:auto!important;min-height:0!important}
+    #story-begin>.water-stage,#story-trees>.water-stage,#story-meridyan>.water-stage{position:relative!important;height:auto!important;min-height:100svh}
+    #story-begin .water-copy,#story-trees .water-copy,#story-meridyan .water-copy{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;max-width:640px!important;width:100%;margin:0 auto;padding:15vh 7vw 17vh}
+    #story-begin .water-copy.story-split,#story-trees .water-copy.story-split,#story-meridyan .water-copy.story-split{display:flex;flex-direction:column;gap:36px;align-items:stretch}
+    #story-begin .story-qa,#story-trees .story-qa,#story-meridyan .story-qa{margin-top:4px}
+  }
 </style>
 <link rel="canonical" href="https://itsyoboyyyyyy.github.io/meridyan-scroll/our-story.html"><meta property="og:type" content="website"><meta property="og:site_name" content="The Meridyan"><meta property="og:title" content="Our Story — The Meridyan"><meta property="og:description" content="The story of The Meridyan — creativity, connection, contribution, and creation."><meta property="og:url" content="https://itsyoboyyyyyy.github.io/meridyan-scroll/our-story.html"><meta property="og:image" content="https://itsyoboyyyyyy.github.io/meridyan-scroll/site-files/hero1.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Our Story — The Meridyan"><meta name="twitter:description" content="The story of The Meridyan — creativity, connection, contribution, and creation."><meta name="twitter:image" content="https://itsyoboyyyyyy.github.io/meridyan-scroll/site-files/hero1.jpg"></head>
 <body class="our-water-page">
