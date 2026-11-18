@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded',function(){
     if(!anchor||document.querySelector('.footer-contact'))return;
     var d=sigEl?document.createElement('span'):document.createElement('div');
     d.className='footer-contact';
-    d.innerHTML='<a href="mailto:connect@themeridyan.com">connect@themeridyan.com</a><span aria-hidden="true"> &middot; </span><a href="tel:+15033969063">(503) 396-9063</a>';
+    d.innerHTML='<a href="mailto:connect@themeridyan.com">connect@themeridyan.com</a><br><a href="tel:+15033969063">(503) 396-9063</a>';
     if(sigEl)sigEl.appendChild(d);else anchor.insertAdjacentElement('afterend',d);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
