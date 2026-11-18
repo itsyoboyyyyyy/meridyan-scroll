@@ -9,6 +9,46 @@
 
   function setVar(el, k, v) { if (el) el.style.setProperty(k, v); }
 
+  // ---------- deferred ambient videos ----------
+  // The element films ship preload="auto" (~65MB total). Strip src up front —
+  // data-src keeps the URL — and hydrate each film when its section is ~2.5
+  // screens away (plus one beat ahead inside the elements story), so the page
+  // loads fast but every video is buffered before it fades in.
+  var deferredVideos = [];
+  function deferVideos() {
+    document.querySelectorAll('video[data-src]').forEach(function (v) {
+      if (v.dataset.vidDeferred) return;
+      v.dataset.vidDeferred = '1';
+      v.removeAttribute('src');
+      v.setAttribute('preload', 'none');
+      // Element films share one tall section, so section-proximity would
+      // hydrate all eight at once — those are paced per-beat in blFrame.
+      // Everything else hydrates by proximity below.
+      if (!v.closest('.blue-life-shot')) deferredVideos.push(v);
+    });
+  }
+  function hydrateVideo(v) {
+    if (!v || v.dataset.vidReady) return;
+    v.dataset.vidReady = '1';
+    var u = v.getAttribute('data-src');
+    if (!u) return;
+    v.setAttribute('src', u);
+    v.setAttribute('preload', 'auto');
+    try { v.load(); } catch (e) {}
+  }
+  function hydrateNearVideos() {
+    var margin = vh() * 2.5;
+    for (var i = 0; i < deferredVideos.length; i++) {
+      var v = deferredVideos[i];
+      if (v.dataset.vidReady) continue;
+      var host = v.closest('section') || v.parentElement;
+      if (!host) continue;
+      var r = host.getBoundingClientRect();
+      if (r.top < margin && r.bottom > -margin) hydrateVideo(v);
+    }
+  }
+  deferVideos();
+
   // progress of a tall section whose inner stage is position:sticky;top:0;height:100svh
   function progress(section) {
     var r = section.getBoundingClientRect();
@@ -208,6 +248,15 @@
     var enterVis = clamp((vh() - stageRect.top) / vh());
     var n = shots.length || 1, act = 1 / n, ch = clamp(Math.floor(p * n), 0, n - 1);
     lastBeat = ch;
+    // Stay one beat ahead — but only once the section is genuinely close, so
+    // visitors who never scroll past the hero don't pull ~65MB of film.
+    var blRect = bl.getBoundingClientRect();
+    if (blRect.top < vh() * 1.2 && blRect.bottom > -vh()) {
+      [ch, Math.min(ch + 1, n - 1)].forEach(function (i) {
+        var shot = shots[i];
+        if (shot) hydrateVideo(shot.querySelector('video'));
+      });
+    }
     bl.setAttribute('data-beat', String(ch));
     beats.forEach(function (b, i) { b.setAttribute('data-active', String(i === ch)); });
     shots.forEach(function (shot, i) {
@@ -432,6 +481,7 @@
     if (bz) bzFrame(progress(bz));
     if (h2o) h2oFrame(progress(h2o));
     if (fw) fwFrame(progress(fw));
+    hydrateNearVideos();
     handoffs();
   }
 
