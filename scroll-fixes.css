@@ -70,7 +70,7 @@ html { scroll-behavior: smooth; }
 
 /* Hero trimmed to intro + "A small click" — shorter scroll, same handoff */
 .flow-journey { height: 200vh; }
-@media (max-width: 700px) { .flow-journey { height: 260vh; } }
+@media (max-width: 700px) { .flow-journey { height: 220vh; } }
 
 /* Element definition tag under each beat kicker */
 .blue-life-element {
@@ -664,7 +664,7 @@ html.has-announce .morpho-header{top:var(--ann-h)}
   width:100%!important;height:100%!important;transform:scale(var(--hero-collage-zoom,1))!important;
   grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);
   gap:5px;padding:5px;background:#101820;z-index:6;
-  opacity:var(--hero-collage-in,0);pointer-events:none;
+  opacity:var(--hero-collage-in,0);pointer-events:none;touch-action:pan-y;
 }
 .flow-opening-product-frame .hero-collage img{
   width:100%!important;height:100%!important;aspect-ratio:auto;
