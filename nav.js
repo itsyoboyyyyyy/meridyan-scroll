@@ -232,8 +232,11 @@ document.addEventListener('DOMContentLoaded',function(){
     var frameOpen=false;
     trig.addEventListener('click',function(){frameOpen=!frameOpen;window.parent.postMessage({meridyanMenu:frameOpen},'*');});
     window.addEventListener('message',function(e){if(e.data==='meridyanMenuClose')frameOpen=false;});
-    // Desktop Wix nav: forward dropdown hover to the parent page mega-menu iframe
-    if(window.innerWidth>700){
+    // Desktop Wix nav: forward dropdown hover to the parent page mega-menu iframe.
+    // innerWidth alone fails when Wix serves its mobile canvas to a desktop —
+    // a wide screen + desktop UA means desktop nav regardless of iframe width.
+    var dskNav = window.innerWidth>700 || (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && window.screen && window.screen.width>1000);
+    if(dskNav){
       document.querySelectorAll('.nav-drop[data-menu]').forEach(function(d){
         d.addEventListener('mouseenter',function(){window.parent.postMessage({meridyanMega:true},'*');});
         d.addEventListener('mouseleave',function(){window.parent.postMessage({meridyanMega:false},'*');});
