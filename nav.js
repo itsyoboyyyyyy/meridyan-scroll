@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded',function(){
       var a=document.createElement('a');
       a.href=s[1];a.target='_blank';a.rel='noopener noreferrer';
       a.setAttribute('aria-label',s[0]+' — The Meridyan');
-      a.innerHTML='<svg viewBox="'+s[3]+'" width="18" height="18" fill="currentColor" aria-hidden="true">'+s[4]+'</svg>';
+      a.innerHTML='<svg viewBox="'+s[2]+'" width="18" height="18" fill="currentColor" aria-hidden="true">'+s[3]+'</svg>';
       wrap.appendChild(a);
     });
     legal.parentNode.insertBefore(wrap,legal);
