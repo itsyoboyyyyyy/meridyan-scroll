@@ -201,6 +201,11 @@
     var shots = Array.prototype.slice.call(stage.querySelectorAll('.blue-life-shot'));
     var copies = Array.prototype.slice.call(stage.querySelectorAll('.blue-life-copy'));
     var beats = stage.querySelectorAll('.blue-life-beats i');
+    // While the stage is still sliding up into view (before it pins), fade the
+    // first story in with the entrance instead of making users wait ~1 screen
+    // of scroll before any Wildamore copy appears.
+    var stageRect = stage.getBoundingClientRect();
+    var enterVis = clamp((vh() - stageRect.top) / vh());
     var n = shots.length || 1, act = 1 / n, ch = clamp(Math.floor(p * n), 0, n - 1);
     lastBeat = ch;
     bl.setAttribute('data-beat', String(ch));
@@ -222,6 +227,7 @@
       var copy = copies[i];
       if (copy) {
         var lc = op * ss(0.05, 0.35, local) * (i === n - 1 ? 1 : (1 - ss(0.85, 1, local)));
+        if (i === 0) lc = Math.max(lc, enterVis * (1 - ss(0, 0.12, p)) * 0.95);
         setVar(copy, '--life-copy', lc.toFixed(4));
         setVar(copy, '--life-rise', ((1 - ss(0.05, 0.4, local)) * 14).toFixed(2) + 'px');
         setRead(copy.querySelector('[data-scroll-reading]'), ss(0.15, 0.75, local));

@@ -110,17 +110,17 @@ document.addEventListener('DOMContentLoaded',function(){
     var p=total>0?Math.min(1,Math.max(0,(window.scrollY-top)/total)):0;
     if(!mq.matches){
       // mobile: text screen, then full-bleed collage screen (shorter handoff)
-      var t=Math.min(1,Math.max(0,(p-0.12)/0.18));
-      var c=Math.min(1,Math.max(0,(p-0.30)/0.18));
-      var pastEnd=Math.min(1,Math.max(0,(p-0.78)/0.12));
+      var t=Math.min(1,Math.max(0,(p-0.10)/0.16));
+      var c=Math.min(1,Math.max(0,(p-0.26)/0.16));
+      var pastEnd=Math.min(1,Math.max(0,(p-0.80)/0.12));
       var colOp=c*(1-pastEnd);
       stage.style.setProperty('--hero-text-out',t.toFixed(4));
       stage.style.setProperty('--hero-collage-in',colOp.toFixed(4));
       // Gentle push-in while the collage screen is up — cinematic drift, one layer.
-      stage.style.setProperty('--hero-collage-zoom',(0.95+0.05*Math.min(1,Math.max(0,(p-0.30)/0.45))).toFixed(4));
+      stage.style.setProperty('--hero-collage-zoom',(0.95+0.05*Math.min(1,Math.max(0,(p-0.26)/0.5))).toFixed(4));
       // Fade the mobile nature backdrop out before the section handoff so the
       // next scene doesn't crossfade over the first section's photo.
-      stage.style.setProperty('--hero-bg',(1-Math.min(1,Math.max(0,(p-0.70)/0.15))).toFixed(4));
+      stage.style.setProperty('--hero-bg',(1-Math.min(1,Math.max(0,(p-0.66)/0.15))).toFixed(4));
       // Collage only captures touches while visible so mobile swipe works.
       if(!collageEl)collageEl=document.querySelector('.hero-collage');
       if(collageEl)collageEl.style.pointerEvents=colOp>0.02?'auto':'none';
