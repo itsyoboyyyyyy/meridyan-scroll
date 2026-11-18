@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://itsyoboyyyyyy.github.io/meridyan-scroll/sitemap.xml
