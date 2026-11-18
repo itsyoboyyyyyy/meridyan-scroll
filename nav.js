@@ -235,7 +235,8 @@ document.addEventListener('DOMContentLoaded',function(){
     // Desktop Wix nav: forward dropdown hover to the parent page mega-menu iframe.
     // innerWidth alone fails when Wix serves its mobile canvas to a desktop —
     // a wide screen + desktop UA means desktop nav regardless of iframe width.
-    var dskNav = window.innerWidth>700 || (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && window.screen && window.screen.width>1000);
+    var __dskUA=!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    var dskNav = window.innerWidth>700 || (__dskUA && ((window.screen&&window.screen.width>1000)||(window.matchMedia&&window.matchMedia('(pointer:fine)').matches)));
     if(dskNav){
       document.querySelectorAll('.nav-drop[data-menu]').forEach(function(d){
         d.addEventListener('mouseenter',function(){window.parent.postMessage({meridyanMega:true},'*');});
