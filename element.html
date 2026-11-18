@@ -101,7 +101,6 @@
 <section class="el-block" id="el-retreats"><div class="el-block-copy">
 <h2 class="el-h">Retreats <em>with the elements.</em></h2>
 <p class="el-sub" id="el-retreat-sub"></p>
-<a class="element-btn el-block-btn" id="el-retreat-btn" href="#"><span class="el-btn-label">View Retreats</span> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
 </div><figure class="el-block-media"><img id="el-retreat-img" src="site-files/mist.jpg" alt=""></figure>
 </section>
 <section class="el-block el-block-alt" id="el-workshops"><div class="el-block-copy">
@@ -183,11 +182,9 @@ document.getElementById('el-coll-name').textContent=el.name;
 document.getElementById('el-retreat-sub').textContent=SUBS.retreats(el.name);
 document.getElementById('el-workshop-sub').textContent=SUBS.workshops(el.name);
 document.getElementById('el-collection-sub').textContent=SUBS.collection(el.name,el.tagline.charAt(0).toLowerCase()+el.tagline.slice(1));
-document.getElementById('el-retreat-btn').href=el.retreat;
 document.getElementById('el-workshop-btn').href=el.workshop;
 document.getElementById('el-collection-btn').href=el.collection;
 var N=el.name;
-document.querySelector('#el-retreat-btn .el-btn-label').textContent='Book '+N+' Retreat';
 document.querySelector('#el-workshop-btn .el-btn-label').textContent='Book '+N+' Workshop';
 document.querySelector('#el-collection-btn .el-btn-label').textContent='Shop '+N+' Collection';
 var wixPage=document.getElementById('el-wixpage'),wixFrame=document.getElementById('el-wix-frame'),hasPage=!!el.page;
