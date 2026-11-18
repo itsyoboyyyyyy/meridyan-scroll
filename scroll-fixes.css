@@ -661,14 +661,14 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 .flow-opening-product-frame .flow-fallback{display:none!important}
 .flow-opening-product-frame .hero-collage{
   display:grid!important;position:fixed!important;left:0!important;right:0!important;top:0!important;bottom:0!important;
-  width:100%!important;height:100%!important;transform:none!important;
+  width:100%!important;height:100%!important;transform:scale(var(--hero-collage-zoom,1))!important;
   grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);
   gap:5px;padding:5px;background:#101820;z-index:6;
   opacity:var(--hero-collage-in,0);pointer-events:none;
 }
 .flow-opening-product-frame .hero-collage img{
   width:100%!important;height:100%!important;aspect-ratio:auto;
-  object-fit:cover;border-radius:8px;box-shadow:none;animation:none;
+  object-fit:cover;border-radius:8px;box-shadow:none;animation:none;background:#1e333c;
 }
 .flow-copy{opacity:calc(1 - var(--hero-text-out,0));translate:0 calc(var(--hero-text-out,0) * -5vh)}
 .hero-collage .hero-nav{

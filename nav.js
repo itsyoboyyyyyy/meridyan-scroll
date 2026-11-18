@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded',function(){
       var pastEnd=Math.min(1,Math.max(0,(p-0.88)/0.12));
       stage.style.setProperty('--hero-text-out',t.toFixed(4));
       stage.style.setProperty('--hero-collage-in',(c*(1-pastEnd)).toFixed(4));
+      // Gentle push-in while the collage screen is up — cinematic drift, one layer.
+      stage.style.setProperty('--hero-collage-zoom',(0.95+0.05*Math.min(1,Math.max(0,(p-0.34)/0.5))).toFixed(4));
       // Fade the mobile nature backdrop out before the section handoff so the
       // next scene doesn't crossfade over the first section's photo.
       stage.style.setProperty('--hero-bg',(1-Math.min(1,Math.max(0,(p-0.80)/0.15))).toFixed(4));
@@ -137,6 +139,23 @@ document.addEventListener('DOMContentLoaded',function(){
   var imgs=Array.prototype.slice.call(collage.querySelectorAll('img'));
   if(imgs.length<=4)return;
   var PER=4, groups=Math.ceil(imgs.length/PER), gi=0;
+  // Defer offscreen groups: the collage ships ~60MB of photos, so strip src
+  // from every group past the first — the browser only fetches what is shown.
+  // show() hydrates the active group; the rest stream in during idle time.
+  imgs.forEach(function(im,i){
+    if(i>=PER&&im.getAttribute('src')){
+      im.setAttribute('data-src',im.getAttribute('src'));
+      im.removeAttribute('src');
+    }
+    im.decoding='async';
+  });
+  function hydrate(g){
+    imgs.forEach(function(im,i){
+      if(Math.floor(i/PER)===g&&!im.getAttribute('src')&&im.getAttribute('data-src')){
+        im.setAttribute('src',im.getAttribute('data-src'));
+      }
+    });
+  }
   collage.removeAttribute('aria-hidden');
   if(window.innerWidth>700)collage.style.position='relative';
   function chevron(left){
@@ -169,6 +188,7 @@ document.addEventListener('DOMContentLoaded',function(){
   },{passive:true});
   function show(g){
     gi=(g+groups)%groups;
+    hydrate(gi);
     var vis=[];
     imgs.forEach(function(im,i){
       var on=Math.floor(i/PER)===gi;
@@ -181,6 +201,17 @@ document.addEventListener('DOMContentLoaded',function(){
     else if(vis.length===3){vis[2].style.gridColumn='span 2';}
   }
   show(0);
+  // After first paint, stream the remaining groups in one at a time so later
+  // swipes/arrows are instant without blocking the initial load.
+  var hi=1;
+  function idleHydrate(){
+    if(hi>=groups)return;
+    hydrate(hi++);
+    setTimeout(idleHydrate,500);
+  }
+  var kick=function(){setTimeout(idleHydrate,1800);};
+  if(document.readyState==='complete')kick();
+  else window.addEventListener('load',kick,{once:true});
 })();
 
 /* Mobile menu — clones desktop nav links, adds element sublist */
