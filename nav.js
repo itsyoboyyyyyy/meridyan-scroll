@@ -337,12 +337,12 @@ document.addEventListener('DOMContentLoaded',function(){
 // Footer contact info
 (function(){
   function mount(){
-    var legal=document.querySelector('.footer-legal');
-    if(!legal||document.querySelector('.footer-contact'))return;
+    var anchor=document.querySelector('.footer-invitation')||document.querySelector('.footer-signature')||document.querySelector('.footer-legal');
+    if(!anchor||document.querySelector('.footer-contact'))return;
     var d=document.createElement('div');
     d.className='footer-contact';
     d.innerHTML='<a href="mailto:connect@themeridyan.com">connect@themeridyan.com</a><span aria-hidden="true"> &middot; </span><a href="tel:+15033969063">(503) 396-9063</a>';
-    legal.parentNode.insertBefore(d,legal);
+    anchor.insertAdjacentElement('afterend',d);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();
