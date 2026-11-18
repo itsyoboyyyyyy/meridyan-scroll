@@ -751,3 +751,6 @@ html.has-announce .morpho-header{top:var(--ann-h)}
 #flow-hero .flow-copy h1{padding-left:0!important;transform:none!important;text-align:center!important}
 #flow-hero .flow-copy .flow-description{margin-left:auto;margin-right:auto}
 }
+
+/* Remove footer emblem watermark */
+.morpho-footer:before,.morpho-outro .morpho-footer:before{display:none!important}
