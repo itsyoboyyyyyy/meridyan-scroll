@@ -251,7 +251,7 @@
     // Stay one beat ahead — but only once the section is genuinely close, so
     // visitors who never scroll past the hero don't pull ~65MB of film.
     var blRect = bl.getBoundingClientRect();
-    if (blRect.top < vh() * 1.2 && blRect.bottom > -vh()) {
+    if (blRect.top < vh() * 1.5 && blRect.bottom > -vh()) {
       [ch, Math.min(ch + 1, n - 1)].forEach(function (i) {
         var shot = shots[i];
         if (shot) hydrateVideo(shot.querySelector('video'));
