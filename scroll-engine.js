@@ -301,6 +301,7 @@
         var btarget = ss(0.08, 0.92, entry);
         var bprev = handoffSmooth ? (handoffSmooth.get(stage) || 0) : btarget;
         var bo = bprev + (btarget - bprev) * 0.16;
+        if (Math.abs(bo - btarget) > 0.002) handoffBusy = true;
         if (handoffSmooth) handoffSmooth.set(stage, bo);
         setVar(stage, '--handoff-opacity', bo.toFixed(4));
         setVar(stage, '--handoff-copy', ss(0.2, 0.75, bo).toFixed(4));
@@ -316,6 +317,7 @@
       var target = ss(0, 0.9, f);
       var prev = handoffSmooth ? (handoffSmooth.get(stage) || 0) : target;
       var o = prev + (target - prev) * 0.16;
+      if (Math.abs(o - target) > 0.002) handoffBusy = true;
       if (handoffSmooth) handoffSmooth.set(stage, o);
       setVar(stage, '--handoff-opacity', o.toFixed(4));
       setVar(stage, '--handoff-copy', ss(0.2, 0.75, o).toFixed(4));
@@ -435,11 +437,21 @@
     handoffs();
   }
 
-  // continuous rAF loop — keeps lerped handoffs converging even after scroll stops
+  // continuous rAF loop — keeps lerped handoffs converging even after scroll stops.
+  // When scroll position is unchanged and all handoff lerps have settled, skip
+  // the whole frame: every frame() call does getBoundingClientRect + dozens of
+  // style writes, which was burning CPU even when the page sat still.
+  var lastY = -1, handoffBusy = false;
   function loop() {
-    frame();
+    var y = window.scrollY || document.documentElement.scrollTop;
+    if (y !== lastY || handoffBusy) {
+      lastY = y;
+      handoffBusy = false;
+      frame();
+    }
     requestAnimationFrame(loop);
   }
+  window.addEventListener('resize', function () { lastY = -1; });
   // ---------- ambient section audio ----------
   var SOUND_FILES = ['wildamore', 'siren', 'ember', 'horizon', 'summit', 'mirage', 'halcyon', 'astoria'];
   var soundOn = false, currentSound = null;
