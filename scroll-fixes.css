@@ -776,3 +776,13 @@ html.has-announce .morpho-header{top:var(--ann-h)}
     top: calc(50% + 42px) !important;
   }
 }
+@media (min-width: 701px) and (max-height: 540px) {
+  .flow-page .flow-opening-content {
+    top: calc(50% + 80px) !important;
+  }
+}
+@media (min-width: 701px) and (max-height: 460px) {
+  .flow-page .flow-opening-content {
+    top: calc(50% + 125px) !important;
+  }
+}
