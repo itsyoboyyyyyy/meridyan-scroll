@@ -350,8 +350,27 @@
       }
       land.load();
     }
-    // nudge every video to load
-    document.querySelectorAll('video').forEach(function (v) { try { v.load(); } catch (e) {} });
+    // lazy-load videos: fetch each clip only when it nears the viewport.
+    // preload="none" in the markup + this observer keep ~70MB of mp4s from
+    // buffering all at once on page load (that spike caused post-load scroll jank).
+    // play()/scrub() still work — they trigger loading on demand as a fallback.
+    if (!wireVideoFallbacks._lazy && 'IntersectionObserver' in window) {
+      wireVideoFallbacks._lazy = true;
+      var vidIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          vidIO.unobserve(en.target);
+          try { en.target.load(); } catch (e) {}
+        });
+      }, { rootMargin: '125% 0px' });
+      document.querySelectorAll('video').forEach(function (v) {
+        if (v === land) return; // hero clip loads eagerly above
+        vidIO.observe(v);
+      });
+    } else if (!wireVideoFallbacks._lazy) {
+      wireVideoFallbacks._lazy = true;
+      document.querySelectorAll('video').forEach(function (v) { try { v.load(); } catch (e) {} });
+    }
   }
 
   // ---------- size the header notch pill to fit the nav ----------
@@ -602,8 +621,8 @@
     });
   }
 
-  window.addEventListener('load', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); preloadSounds(); });
+  window.addEventListener('load', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); });
   window.addEventListener('resize', sizeNotch);
-  document.addEventListener('DOMContentLoaded', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); preloadSounds(); });
+  document.addEventListener('DOMContentLoaded', function () { wireVideoFallbacks(); wireChrome(); wireSound(); wireAutoplay(); });
   requestAnimationFrame(loop);
 })();
